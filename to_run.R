@@ -14,17 +14,6 @@ source(paste0(projectFolder, "/pack_param_funct/packages.R"))
 if (!require("rstudioapi")) install.packages("rstudioapi")
 
 
-# script_librerias
-
-
-
-# script_parametros
-
-
-
-
-
-
 
 
 
@@ -47,5 +36,5 @@ source("script_machine_learning/XXX.R")
 
 render(paste0(memoria_dir, "ML_COVID_Memoria.Rmd"), c("html_document", "pdf_document"), output_dir = output_dir)
 
-# execute_RMarkdown
+
 
