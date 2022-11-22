@@ -7,3 +7,8 @@ if (!require(dplyr)) {
   install.packages("dplyr")
 }
 suppressPackageStartupMessages(library(dplyr))
+
+if (!require(rmarkdown)) {
+  install.packages("rmarkdown")
+}
+suppressPackageStartupMessages(library(rmarkdown))
