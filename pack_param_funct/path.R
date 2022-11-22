@@ -1,3 +1,8 @@
+
+if (!dir.exists("output")){  dir.create("output")}
+
+if (!dir.exists("intermediate_file")){  dir.create("intermediate_file")}
+
 output_dir <- paste0(projectFolder, "/output/")
 memoria_dir <- paste0(projectFolder, "/memoria/")
 intermediate_file_dir <- paste0(projectFolder, "/intermediate_file/")
