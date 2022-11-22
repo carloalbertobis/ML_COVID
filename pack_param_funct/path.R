@@ -1,0 +1,6 @@
+output_dir <- paste0(projectFolder, "/output/")
+memoria_dir <- paste0(projectFolder, "/memoria/")
+intermediate_file_dir <- paste0(projectFolder, "/intermediate_file/")
+scriptml_dir <- paste0(projectFolder, "/script_machine_learning/")
+scriptdata_dir <- paste0(projectFolder, "/script_data_analysis/")
+ppf_dir <- paste0(projectFolder, "/pack_param_funct/")
