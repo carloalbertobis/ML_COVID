@@ -1,5 +1,6 @@
 rm(list=ls(all.names=TRUE))
 
+sample <- TRUE
 
 #set path libraries functions
 if (!require("rstudioapi")) install.packages("rstudioapi")

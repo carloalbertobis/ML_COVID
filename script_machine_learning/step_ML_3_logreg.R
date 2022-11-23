@@ -1,25 +1,26 @@
 # Logistic Regression
+load(paste0(intermediate_file_dir, "train_data.RData"))
+load(paste0(intermediate_file_dir, "test_data.RData"))
 
-glm_model <-glm(severity ~ .,data = train_data[,c(2:13)], family=binomial)
-stepAIC(glm_model)
+glm_model <- glm(outcome ~ .,data = train_data, family="binomial")
+#summary(glm_model)
+stepAIC(glm_model, trace = FALSE)
+step_mlrC <- glm_model %>% stepAIC(trace = FALSE)
 
-glm_fit <- train(severity ~ .,data = train_data[,c(2:13)],method = "glm", family="binomial",trControl=ctrl)
+formula(step_mlrC)
+
+glm_fit <- train(outcome ~ .,data = train_data, method = "glm", family="binomial",trControl=ctrl)
 
 glmClasses <- predict(glm_fit, newdata = test_data)
 glmProbs <- predict(glm_fit, newdata = test_data, type = "prob")
 
-confusionMatrix(data = glmClasses , test_data$severity)
+confusionMatrix(data = glmClasses , test_data$outcome)
 
 save(glm_fit, file = paste0(intermediate_file_dir, "glm_fit.RData"))
 saveRDS(glm_fit, file = paste0(intermediate_file_dir,"glm_fit.rds"))
 
-#system time
-#system.time(glmFit <- train(severity ~ .,data = train_data[,c(2:13)],method = "glm", family="binomial",trControl=ctrl)) #1.48
-#time_glm<-c(1.36, 1.35,1.35,1.31,1.39,1.31,1.39,1.35,1.33,1.32)
-#summary(time_glm)
-
 #AUC
-result.roc <- roc(test_data$severity, glmProbs$Yes)
+result.roc <- roc(test_data$outcome, glmProbs$Yes)
 save(result.roc, file = paste0(intermediate_file_dir, "result.roc.RData"))
 saveRDS(result.roc, file = paste0(intermediate_file_dir,"result.roc.rds"))
 
