@@ -23,9 +23,9 @@ source(paste0(projectFolder, "/pack_param_funct/packages.R"))
 # script_machine_learning
 
 
-source("script_machine_learning/XXX.R") 
-
-
+source("script_machine_learning/step_ML_1_datasplit.R") 
+source("script_machine_learning/step_ML_2_crossvalidation.R") 
+source("script_machine_learning/step_ML_3_logreg.R") 
 
 
 
