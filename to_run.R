@@ -11,7 +11,7 @@ source(paste0(projectFolder, "/pack_param_funct/packages.R"))
 
 
 #set the directory where the file is saved as the working directory
-if (!require("rstudioapi")) install.packages("rstudioapi")
+
 
 
 
