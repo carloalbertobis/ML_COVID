@@ -2,8 +2,22 @@
 title: "ML_COVID_Memoria"
 author: "Carlo Alberto Bissacco"
 date: "2022-11-22"
-output: html_document
+params:
+  schillingData: "schillingData.txt"
+  impensData: "impensData.txt"
+  k_value: !r c(3,5,7,11)
+  percentage: !r c(67)     
+nocite: |
+  @thurin2022inception
+bibliography: BIBLIO.bib
 ---
+
+
+
+
+
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

@@ -1,0 +1,42 @@
+@article{thurin2022inception,
+  title={From Inception to ConcePTION: Genesis of a Network to Support Better Monitoring and Communication of Medication Safety During Pregnancy and Breastfeeding},
+  author={Thurin, Nicolas H and Pajouheshnia, Romin and Roberto, Giuseppe and Dodd, Caitlin and Hyeraci, Giulia and Bartolini, Claudia and Paoletti, Olga and Nordeng, Hedvig and Wallach-Kildemoes, Helle and Ehrenstein, Vera and others},
+  journal={Clinical Pharmacology \& Therapeutics},
+  volume={111},
+  number={1},
+  pages={321--331},
+  year={2022},
+  publisher={Wiley Online Library}
+}
+
+@article{obermeyer2016predicting,
+  title={Predicting the future—big data, machine learning, and clinical medicine},
+  author={Obermeyer, Ziad and Emanuel, Ezekiel J},
+  journal={The New England journal of medicine},
+  volume={375},
+  number={13},
+  pages={1216},
+  year={2016},
+  publisher={NIH Public Access}
+}
+
+@article{couronne2018random,
+  title={Random forest versus logistic regression: a large-scale benchmark experiment},
+  author={Couronn{\'e}, Raphael and Probst, Philipp and Boulesteix, Anne-Laure},
+  journal={BMC bioinformatics},
+  volume={19},
+  number={1},
+  pages={1--14},
+  year={2018},
+  publisher={Springer}
+}
+
+@article{beunza2019comparison,
+  title={Comparison of machine learning algorithms for clinical event prediction (risk of coronary heart disease)},
+  author={Beunza, Juan-Jose and Puertas, Enrique and Garc{\'\i}a-Ovejero, Ester and Villalba, Gema and Condes, Emilia and Koleva, Gergana and Hurtado, Cristian and Landecho, Manuel F},
+  journal={Journal of biomedical informatics},
+  volume={97},
+  pages={103257},
+  year={2019},
+  publisher={Elsevier}
+}
