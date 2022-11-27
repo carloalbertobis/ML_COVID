@@ -1,44 +1,48 @@
 ---
 title: "ML_COVID_Memoria"
 author: "Carlo Alberto Bissacco"
-date: "2022-11-22"
-params:
-  schillingData: "schillingData.txt"
-  impensData: "impensData.txt"
-  k_value: !r c(3,5,7,11)
-  percentage: !r c(67)     
-nocite: |
-  @thurin2022inception
-bibliography: BIBLIO.bib
+date: "2023-01-12"
+output: 
+  pdf_document:
+   keep_tex: yes
+   toc: yes
+   #rticles::elsevier_article:
+   # keep_tex: true
+   # citation_package: natbib
+  html_document:
+   toc: yes
+link-citations: yes
+link-bibliography : yes
+notes-after-punctuation : TRUE
+linkcolor: blue
+abstract: |
+ SCRIVERE QUI ABSTRACT pfogbkeopkgggktktkt rgortofoo 
+ ooooooooooooopfeokbtprbbtotgobkovmsdvl fdkmvbsnvpgdfkfj
+ nbkjgfnbgjnblkmvklgñklovkggkkkgeprokw
+keywords: |
+  SCRIVERE QUI KEYWARDS
+csl : elsevier-with-titles.csl
+bibliography: scholar1.bib
 ---
 
-
-
-
-
-
-
+\pagebreak
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, comment = NULL)
 ```
 
-## R Markdown
+\pagebreak
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# titolo 1
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## titolo2
 
-```{r cars}
-summary(cars)
-```
+come diceva [@obermeyer2016predicting]
 
-## Including Plots
+come diceva @obermeyer2016predicting
 
-You can also embed plots, for example:
+come diceva anche la'ltreo idiota @couronne2018random
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+\pagebreak
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# References {.unnumbered}

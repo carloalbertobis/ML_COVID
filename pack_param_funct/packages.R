@@ -24,3 +24,8 @@ suppressPackageStartupMessages(library(gmodels, quietly = TRUE))
 
 if (!require(MASS)) {install.packages("MASS")}
 suppressPackageStartupMessages(library(MASS, quietly = TRUE))
+
+if (!require(MASS)) {install.packages("MASS")}
+suppressPackageStartupMessages(library(MASS, quietly = TRUE))
+
+
