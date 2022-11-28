@@ -1,0 +1,244 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={ML\_COVID\_Memoria},
+  pdfauthor={Carlo Alberto Bissacco},
+  pdfkeywords={SCRIVERE QUI KEYWARDS},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{ML\_COVID\_Memoria}
+\author{Carlo Alberto Bissacco}
+\date{2023-01-12}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+SCRIVERE QUI ABSTRACT pfogbkeopkgggktktkt rgortofoo
+ooooooooooooopfeokbtprbbtotgobkovmsdvl fdkmvbsnvpgdfkfj
+nbkjgfnbgjnblkmvklgñklovkggkkkgeprokw
+\end{abstract}
+
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\pagebreak
+
+\pagebreak
+
+\hypertarget{titolo-1}{%
+\section{titolo 1}\label{titolo-1}}
+
+\hypertarget{titolo2}{%
+\subsection{titolo2}\label{titolo2}}
+
+come diceva {[}\protect\hyperlink{ref-obermeyer2016predicting}{1}{]}
+
+come diceva {[}\protect\hyperlink{ref-obermeyer2016predicting}{1}{]}
+
+come diceva anche la'ltreo idiota
+{[}\protect\hyperlink{ref-couronne2018random}{2}{]}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{formula}\NormalTok{(glm\_aic\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+outcome ~ age + deficiencyanemias + renal.failure + COPD + hematocrit + 
+    MCH + MCV + leucocyte + platelets + PT + glucose + blood.calcium + 
+    anion.gap + PCO2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cbind}\NormalTok{(}\StringTok{"Estimate"}\OtherTok{=}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(glm\_aic\_model))[,}\DecValTok{1}\NormalTok{], }\StringTok{"Odds"}\OtherTok{=}\FunctionTok{exp}\NormalTok{(}\FunctionTok{coef}\NormalTok{(glm\_aic\_model)), }\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(glm\_aic\_model))[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{])}\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{format=}\StringTok{"pandoc"}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrrrrr@{}}
+\toprule()
+& Estimate & Odds & Std. Error & z value &
+Pr(\textgreater\textbar z\textbar) \\
+\midrule()
+\endhead
+(Intercept) & 5.437 & 229.695 & 4.963 & 1.095 & 0.273 \\
+age & -0.061 & 0.941 & 0.021 & -2.871 & 0.004 \\
+deficiencyanemiasYes & 1.554 & 4.732 & 0.613 & 2.537 & 0.011 \\
+renal.failureYes & 2.230 & 9.299 & 0.597 & 3.738 & 0.000 \\
+COPDYes & 1.559 & 4.753 & 0.952 & 1.637 & 0.102 \\
+hematocrit & 0.097 & 1.102 & 0.054 & 1.803 & 0.071 \\
+MCH & 0.503 & 1.654 & 0.225 & 2.234 & 0.026 \\
+MCV & -0.186 & 0.830 & 0.083 & -2.233 & 0.026 \\
+leucocyte & -0.163 & 0.849 & 0.056 & -2.915 & 0.004 \\
+platelets & 0.011 & 1.011 & 0.003 & 3.758 & 0.000 \\
+PT & -0.050 & 0.951 & 0.030 & -1.670 & 0.095 \\
+glucose & -0.009 & 0.991 & 0.004 & -2.299 & 0.022 \\
+blood.calcium & 1.047 & 2.848 & 0.427 & 2.451 & 0.014 \\
+anion.gap & -0.436 & 0.647 & 0.105 & -4.131 & 0.000 \\
+PCO2 & -0.044 & 0.957 & 0.021 & -2.095 & 0.036 \\
+\bottomrule()
+\end{longtable}
+
+\pagebreak
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{0}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-obermeyer2016predicting}{}}%
+\CSLLeftMargin{{[}1{]} }%
+\CSLRightInline{Z. Obermeyer, E.J. Emanuel, Predicting the future---big
+data, machine learning, and clinical medicine, The New England Journal
+of Medicine. 375 (2016) 1216.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-couronne2018random}{}}%
+\CSLLeftMargin{{[}2{]} }%
+\CSLRightInline{R. Couronné, P. Probst, A.-L. Boulesteix, Random forest
+versus logistic regression: A large-scale benchmark experiment, BMC
+Bioinformatics. 19 (2018) 1--14.}
+
+\end{CSLReferences}
+
+\end{document}

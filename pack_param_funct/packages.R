@@ -28,4 +28,14 @@ suppressPackageStartupMessages(library(MASS, quietly = TRUE))
 if (!require(MASS)) {install.packages("MASS")}
 suppressPackageStartupMessages(library(MASS, quietly = TRUE))
 
+if (!require(gmodels)) {install.packages("gmodels")}
+suppressPackageStartupMessages(library(gmodels, quietly = TRUE))
 
+if (!require(kernlab)) {install.packages("kernlab")}
+suppressPackageStartupMessages(library(kernlab, quietly = TRUE))
+
+if (!require(knitr)) {install.packages("knitr")}
+suppressPackageStartupMessages(library(knitr, quietly = TRUE))
+
+
+library(pROC)

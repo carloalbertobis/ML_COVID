@@ -18,7 +18,7 @@ test_data<- data_covid[-train_list,]
 save(train_data, file = paste0(intermediate_file_dir, "train_data.RData"))
 save(test_data, file = paste0(intermediate_file_dir, "test_data.RData"))
 
-#saveRDS(train_data, file = paste0(intermediate_file_dir,"train_data.rds"))
-#saveRDS(test_data, file = paste0(intermediate_file_dir,"test_data.rds"))
+saveRDS(train_data, file = paste0(intermediate_file_dir,"train_data.rds"))
+saveRDS(test_data, file = paste0(intermediate_file_dir,"test_data.rds"))
 
 rm(train_list, data_covid, train_data, test_data, percent)

@@ -10,6 +10,10 @@ scriptml_dir <- paste0(projectFolder, "/script_machine_learning/")
 scriptdata_dir <- paste0(projectFolder, "/script_data_analysis/")
 ppf_dir <- paste0(projectFolder, "/pack_param_funct/")
 data_sample_dir <- paste0(projectFolder, "/sample_file/")
+output_sample_dir <- paste0(projectFolder, "/output_sample/")
 
-if (sample == TRUE){intermediate_file_dir <- data_sample_dir}
+if (sample == TRUE){
+  intermediate_file_dir <- data_sample_dir
+  output_dir <- output_sample_dir
+  }
 
