@@ -26,59 +26,51 @@ summary(glm_aic_model)
 glm_fit_aic <- train(formula_glm_aic_model, data = train_data, method = "glm", family="binomial",trControl=ctrl)
 glm_fit_full <- train(formula_glm_full, data = train_data, method = "glm", family="binomial",trControl=ctrl)
 
-
 # predict
 
 glmClasses <- predict(glm_fit_aic, newdata = test_data)
 glmProbs <- predict(glm_fit_aic, newdata = test_data, type = "prob")
 
-as.vector(test_data[,1])
+#xxx <- (test_data[,1])
+#xxx <- xxx$outcome
+#confusionMatrix(data = glmClasses, xxx)
 
-xxx <- (test_data[,1])
-xxx <- xxx$outcome
-
-confusionMatrix(data = glmClasses, xxx)
-
-#AUC
-result.roc <- roc(xxx, glmProbs$Nosurvivor)
-
-
-levels(test_data$outcome)
-levels(glmClasses)
-
-
-
-library(ROCR)
-pred <- prediction(xxx, glmClasses)
-
-is.data.table(test_data@outcome)
-
-step_mlrC <- glm_model %>% stepAIC(trace = FALSE)
-
-foriA <- formula(step_mlrC)
-
-full_mlrA<- glm(foriA, data = train_data, family = 'binomial')
-summary(full_mlrA)
-
-
-glm_fit <- train(outcome ~ .,data = train_data, method = "glm", family="binomial",trControl=ctrl)
-
-
-
-
-
-save(glm_fit, file = paste0(intermediate_file_dir, "glm_fit.RData"))
-saveRDS(glm_fit, file = paste0(intermediate_file_dir,"glm_fit.rds"))
+glm_conf_matrix <- confusionMatrix(data = glmClasses, test_data$outcome)
 
 #AUC
-result.roc <- roc(test_data$outcome, glmProbs$Yes)
-save(result.roc, file = paste0(intermediate_file_dir, "result.roc.RData"))
-saveRDS(result.roc, file = paste0(intermediate_file_dir,"result.roc.rds"))
+glm_result_roc <- roc(test_data$outcome, glmProbs$Nosurvivor)
 
-#Variable importance
-var_imp_glm <- varImp(glm_fit, scale = FALSE)
-save(var_imp_glm, file = paste0(intermediate_file_dir, "var_imp_glm.RData"))
-saveRDS(var_imp_glm, file = paste0(intermediate_file_dir,"var_imp_glm.rds"))
-#plot(var_imp_glm)
+#################################
+#library(ROCR)
+#glmProbs <- predict(glm_fit_aic, newdata = test_data, type = "prob")
 
-# rm()
+#pred <- prediction(glmProbs$Survivor, test_data$outcome)
+
+
+#roc <- performance(pred, measure = "fpr", x.measure = "tpr")
+#plot(roc)
+
+
+#roc2 <- performance(pred, measure = "auc")
+#auc <- roc2@y.values
+#auc
+######################################
+
+#save
+save(glm_fit_aic, file = paste0(intermediate_file_dir, "glm_fit_aic.RData"))
+saveRDS(glm_fit_aic, file = paste0(intermediate_file_dir,"glm_fit_aic.rds"))
+        
+save(glm_result_roc, file = paste0(intermediate_file_dir, "glm_result_roc.RData"))
+saveRDS(glm_result_roc, file = paste0(intermediate_file_dir,"glm_result_roc.rds"))
+
+save(glm_conf_matrix, file = paste0(intermediate_file_dir, "glm_conf_matrix.RData"))
+saveRDS(glm_conf_matrix, file = paste0(intermediate_file_dir,"glm_conf_matrix.rds"))
+
+save(formula_glm_aic_model, file = paste0(intermediate_file_dir, "formula_glm_aic_model.RData"))
+saveRDS(formula_glm_aic_model, file = paste0(intermediate_file_dir,"formula_glm_aic_model.rds"))
+
+#clean
+rm(glm_result_roc, glm_conf_matrix, aic_model, ctrl, glm_aic_model, glm_fit_aic, glm_fit_full, glm_full_model, glmProbs, test_data, train_data)
+
+
+

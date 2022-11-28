@@ -1,6 +1,8 @@
 rm(list=ls(all.names=TRUE))
 
-sample <- TRUE
+#sample <- "SID"
+#sample <- "ein"
+sample <- "sample"
 
 #set path libraries functions
 if (!require("rstudioapi")) install.packages("rstudioapi")
@@ -26,8 +28,8 @@ source(paste0(projectFolder, "/pack_param_funct/packages.R"))
 source("script_machine_learning/step_ML_1_datasplit.R") 
 source("script_machine_learning/step_ML_2_crossvalidation.R") 
 
-
 source("script_machine_learning/step_ML_3_logreg.R") 
+
 source("script_machine_learning/step_ML_4_randomforest.R") 
 source("script_machine_learning/step_ML_5_SVM.R") 
 source("script_machine_learning/step_ML_6_naivebayes.R") 
