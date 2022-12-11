@@ -1,12 +1,19 @@
-p1<-roc(glmFit$pred$obs,glmFit$pred$Yes,auc = T,
-        smooth = F,
-        # arguments for ci
-        ci=TRUE, ci.alpha=0.9, stratified=FALSE,
-        # arguments for plot
-        plot=TRUE, auc.polygon=FALSE, grid=TRUE,
-        print.auc=TRUE, show.thres=F, percent=TRUE, col="brown4",
-        asp = 0, print.thres=F, main = "Logistic regression", legacy.axes=T)
-glmroc<-ggroc(p1, colour="aquamarine3", size=1.5) + theme(panel.background = element_blank(), panel.border = element_rect(fill=NA, colour="black"), text=element_text(family="Segoe UI Historic", size=12)) + annotate(geom="text", x=30, y=25, label="AUC: 65.3% (58.9%-71.8%)", family="Segoe UI Historic") + ggtitle("Logistic")
+
+# load roc
+load(paste0(dir_list[1],"glm_result_roc.Rdata"))
+load(paste0(dir_list[2],"rf_result_roc.Rdata"))
+load(paste0(dir_list[3],"svm_result_roc_radial.Rdata"))
+load(paste0(dir_list[3],"svm_result_roc_linear.Rdata"))
+load(paste0(dir_list[4],"nb_result_roc.Rdata"))
+load(paste0(dir_list[4],"nb_result_roc2.Rdata"))
+load(paste0(dir_list[4],"nb_result_roc3.Rdata"))
+load(paste0(dir_list[5],"knn_result_roc.Rdata"))
+load(paste0(dir_list[6],"ann_result_roc.Rdata"))
+load(paste0(dir_list[7],"glmnet_result_roc.Rdata"))
+
+
+
+
 
 #optimisim glm
 glmProbs_train <- predict(glmFit, newdata = train.data12_i, type = "prob")

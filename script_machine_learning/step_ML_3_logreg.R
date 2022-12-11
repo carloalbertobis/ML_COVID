@@ -1,3 +1,4 @@
+
 # Logistic Regression
 load(paste0(intermediate_file_dir, "train_data.RData"))
 load(paste0(intermediate_file_dir, "test_data.RData"))
@@ -46,28 +47,29 @@ glm_result_roc <- roc(test_data$outcome, glmProbs$Nosurvivor)
 
 #pred <- prediction(glmProbs$Survivor, test_data$outcome)
 
-
 #roc <- performance(pred, measure = "fpr", x.measure = "tpr")
 #plot(roc)
-
 
 #roc2 <- performance(pred, measure = "auc")
 #auc <- roc2@y.values
 #auc
 ######################################
 
-#save
-save(glm_fit_aic, file = paste0(intermediate_file_dir, "glm_fit_aic.RData"))
-saveRDS(glm_fit_aic, file = paste0(intermediate_file_dir,"glm_fit_aic.rds"))
+#save fit 
+save(glm_fit_aic, file = paste0(glm_dir, "glm_fit_aic.RData"))
+saveRDS(glm_fit_aic, file = paste0(glm_dir, "glm_fit_aic.rds"))
         
-save(glm_result_roc, file = paste0(intermediate_file_dir, "glm_result_roc.RData"))
-saveRDS(glm_result_roc, file = paste0(intermediate_file_dir,"glm_result_roc.rds"))
+# save ROC
+save(glm_result_roc, file = paste0(glm_dir, "glm_result_roc.RData"))
+saveRDS(glm_result_roc, file = paste0(glm_dir, "glm_result_roc.rds"))
 
-save(glm_conf_matrix, file = paste0(intermediate_file_dir, "glm_conf_matrix.RData"))
-saveRDS(glm_conf_matrix, file = paste0(intermediate_file_dir,"glm_conf_matrix.rds"))
+# save confusion matrix
+save(glm_conf_matrix, file = paste0(glm_dir, "glm_conf_matrix.RData"))
+saveRDS(glm_conf_matrix, file = paste0(glm_dir, "glm_conf_matrix.rds"))
 
-save(formula_glm_aic_model, file = paste0(intermediate_file_dir, "formula_glm_aic_model.RData"))
-saveRDS(formula_glm_aic_model, file = paste0(intermediate_file_dir,"formula_glm_aic_model.rds"))
+# save formula model AIC
+save(formula_glm_aic_model, file = paste0(glm_dir, "formula_glm_aic_model.RData"))
+saveRDS(formula_glm_aic_model, file = paste0(glm_dir, "formula_glm_aic_model.rds"))
 
 #clean
 rm(glm_result_roc, glm_conf_matrix, aic_model, ctrl, glm_aic_model, glm_fit_aic, glm_fit_full, glm_full_model, glmProbs, test_data, train_data)

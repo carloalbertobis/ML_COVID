@@ -1,7 +1,12 @@
 #fwrite(File, file = paste0(Outputfolder, "/", i), sep = Delimiter, col.names = T, row.names = F, na = "", append = F)
 
 
+data_covid$outcome
+test_data$outcome
+train_data$outcome
 
+levels(train_data$outcome) <- c("Nosurvivor","Survivor")
+levels(test_data$outcome) <- c("Nosurvivor","Survivor")
 
 
 
@@ -26,6 +31,24 @@ data_covid <- na.omit(data_covid)
 save(data_covid, file = paste0(data_sample_dir, "data_covid.RData"))
 saveRDS(data_covid, file = paste0(data_sample_dir,"data_covid.rds"))
 ###################################
+
+
+source(paste0(projectFolder, "/pack_param_funct/load_fit.R"))
+source(paste0(projectFolder, "/pack_param_funct/load_roc.R"))
+source(paste0(projectFolder, "/pack_param_funct/load_conf_matrix.R"))
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

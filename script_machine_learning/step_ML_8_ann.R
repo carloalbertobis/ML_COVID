@@ -1,20 +1,35 @@
-annFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "nnet",trControl=ctrl, tuneLength=10)
-rdaGrid = data.frame(size=11, decay=0.1)
-annFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "nnet",trControl=ctrl, tuneGrid = rdaGrid)
+# load
+load(paste0(intermediate_file_dir, "train_data.RData"))
+load(paste0(intermediate_file_dir, "test_data.RData"))
+load(paste0(intermediate_file_dir, "ctrl.RData"))
 
-annClasses <- predict(annFit, newdata = test.data12_i)
-annProbs <- predict(annFit, newdata = test.data12_i, type = "prob")
+# train ann
+ann_fit <- train(outcome ~ .,data = train_data,method = "nnet", trControl=ctrl)
+rdaGrid <- ann_fit$bestTune
+ann_fit <- train(outcome ~ .,data = train_data, method = "nnet", trControl=ctrl, tuneGrid = rdaGrid)
 
-confusionMatrix(data = annClasses , test.data12_i$dp12) 
+# predict
+annClasses <- predict(ann_fit, newdata = test_data)
+annProbs <- predict(ann_fit, newdata = test_data, type = "prob")
 
-saveRDS(annFit, "C:/Users/sarad/OneDrive/Escritorio/EPIICAL/EARTH/19- Machine Learning/ML May 2020/Models/annFit.rds")
+ann_conf_matrix <- confusionMatrix(data = annClasses , test_data$outcome) 
 
-system.time(annFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "nnet",trControl=ctrl, tuneGrid = rdaGrid) #2.3
-)
+# roc
+ann_result_roc <- roc(test_data$outcome, annProbs$Nosurvivor)
 
-time_ann<-c(2.58, 2.45, 2.5,2.56,2.54, 2.5,2.5, 2.5, 2.5, 2.43)
-summary(time_ann)
 
-#Variable importance
-annImp <- varImp(annFit, scale = FALSE)
-plot(annImp)
+#save train
+save(ann_fit, file = paste0(ann_dir, "ann_fit.RData"))
+saveRDS(ann_fit, file = paste0(ann_dir, "ann_fit.rds"))
+
+#save ROC
+save(ann_result_roc, file = paste0(ann_dir, "ann_result_roc.RData"))
+saveRDS(ann_result_roc, file = paste0(ann_dir, "ann_result_roc.rds"))
+
+# save confusion matrix
+save(ann_conf_matrix, file = paste0(ann_dir, "ann_conf_matrix.RData"))
+saveRDS(ann_conf_matrix, file = paste0(ann_dir, "ann_conf_matrix.rds"))
+
+# clean
+rm(ctrl, test_data, train_data, annProbs, rdaGrid, annClasses)
+rm(ann_conf_matrix, ann_fit, ann_result_roc)

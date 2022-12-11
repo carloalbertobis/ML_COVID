@@ -1,20 +1,36 @@
-knnFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "knn",trControl=ctrl, tuneLength=10)
-rdaGrid = data.frame(k=5)
-knnFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "knn",trControl=ctrl, tuneGrid = rdaGrid)
 
-knnClasses <- predict(knnFit, newdata = test.data12_i)
-knnProbs <- predict(knnFit, newdata = test.data12_i, type = "prob")
+# load
+load(paste0(intermediate_file_dir, "train_data.RData"))
+load(paste0(intermediate_file_dir, "test_data.RData"))
+load(paste0(intermediate_file_dir, "ctrl.RData"))
 
-confusionMatrix(data = knnClasses , test.data12_i$dp12) 
+# train knn
+knn_fit <- train(outcome ~ .,data = train_data,method = "knn", trControl=ctrl, tuneLength=10)
+rdaGrid <- knn_fit$bestTune
+knn_fit <- train(outcome ~ .,data = train_data, method = "knn", trControl=ctrl, tuneGrid = rdaGrid)
 
-saveRDS(knnFit, "C:/Users/sarad/OneDrive/Escritorio/EPIICAL/EARTH/19- Machine Learning/ML May 2020/Models/knnFit.rds")
+# predict
+knnClasses <- predict(knn_fit, newdata = test_data)
+knnProbs <- predict(knn_fit, newdata = test_data, type = "prob")
+
+knn_conf_matrix <- confusionMatrix(data = knnClasses , test_data$outcome) 
+
+# roc
+knn_result_roc <- roc(test_data$outcome, knnProbs$Nosurvivor)
 
 
-system.time(knnFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "knn",trControl=ctrl, tuneGrid = rdaGrid)) #0.95
+#save train
+save(knn_fit, file = paste0(knn_dir, "knn_fit.RData"))
+saveRDS(knn_fit, file = paste0(knn_dir, "knn_fit.rds"))
 
-time_knn<-c(0.99,1.05,1.01,1.05,1.06,1.05, 1.07,1.04,1.05,1)
-summary(time_knn)
+#save ROC
+save(knn_result_roc, file = paste0(knn_dir, "knn_result_roc.RData"))
+saveRDS(knn_result_roc, file = paste0(knn_dir, "knn_result_roc.rds"))
 
-#Variable importance
-knnImp <- varImp(knnFit, scale = FALSE)
-plot(knnImp)
+# save confusion matrix
+save(knn_conf_matrix, file = paste0(knn_dir, "knn_conf_matrix.RData"))
+saveRDS(knn_conf_matrix, file = paste0(knn_dir, "knn_conf_matrix.rds"))
+
+# clean
+rm(ctrl, test_data, train_data, knnProbs, rdaGrid, knnClasses)
+rm(knn_conf_matrix, knn_fit, knn_result_roc)

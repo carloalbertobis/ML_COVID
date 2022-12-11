@@ -1,0 +1,36 @@
+---
+title: "ML_COVID_Memoria"
+author: "Carlo Alberto Bissacco"
+date: "12-01-2023"
+lang: es
+knit: "bookdown::render_book"
+output: 
+  bookdown::pdf_book:
+   keep_tex: yes
+   toc: yes
+   #rticles::elsevier_article:
+   # keep_tex: true
+   # citation_package: natbib
+  html_document:
+   toc: yes
+link-citations: yes
+link-bibliography : yes
+notes-after-punctuation : TRUE
+linkcolor: blue
+abstract: |
+ SCRIVERE QUI ABSTRACT pfogbkeopkgggktktkt rgortofoo 
+ ooooooooooooopfeokbtprbbtotgobkovmsdvl fdkmvbsnvpgdfkfj
+ nbkjgfnbgjnblkmvklgñklovkggkkkgeprokw
+keywords: |
+  SCRIVERE QUI KEYWARDS
+csl : elsevier-with-titles.csl
+bibliography: scholar1.bib
+#rmd_files: ["02_Test.Rmd","01_TestXXX.Rmd"]
+---
+
+  
+
+
+
+
+

@@ -1,19 +1,35 @@
-glmnetFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "glmnet",trControl=ctrl, tuneLength=10)
-rdaGrid = data.frame(alpha=0.8, lambda=0.210781)
-glmnetFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "glmnet",trControl=ctrl, tuneGrid = rdaGrid)
+# load
+load(paste0(intermediate_file_dir, "train_data.RData"))
+load(paste0(intermediate_file_dir, "test_data.RData"))
+load(paste0(intermediate_file_dir, "ctrl.RData"))
 
-glmnetClasses <- predict(glmnetFit , newdata = test.data12_i)
-glmnetProbs <- predict(glmnetFit , newdata = test.data12_i, type = "prob")
+# train glmnet
+glmnet_fit <- train(outcome ~ .,data = train_data,method = "glmnet", trControl=ctrl, tuneLength=10)
+rdaGrid <- glmnet_fit$bestTune
+glmnet_fit <- train(outcome ~ .,data = train_data, method = "glmnet", trControl=ctrl, tuneGrid = rdaGrid)
 
-confusionMatrix(data = glmnetClasses , test.data12_i$dp12) #sensitiviy 0.8 #specificity 0.7
+# predict
+glmnetClasses <- predict(glmnet_fit, newdata = test_data)
+glmnetProbs <- predict(glmnet_fit, newdata = test_data, type = "prob")
 
-saveRDS(glmnetFit, "C:/Users/sarad/OneDrive/Escritorio/EPIICAL/EARTH/19- Machine Learning/ML May 2020/Models/glmnetFit.rds")
+glmnet_conf_matrix <- confusionMatrix(data = glmnetClasses , test_data$outcome) 
 
-system.time(glmnetFit <- train(dp12 ~ .,data = train.data12_i[,c(2:13)],method = "glmnet",trControl=ctrl, tuneGrid = rdaGrid)) #1.81
+# roc
+glmnet_result_roc <- roc(test_data$outcome, glmnetProbs$Nosurvivor)
 
-time_glmnet<-c(1.95,1.75,1.79, 1.83, 1.87, 1.78, 1.81, 1.8,1.8,1.86)
-summary(time_glmnet)
 
-#Variable importance
-glmnetImp <- varImp(glmnetFit, scale = FALSE)
-plot(glmnetImp)
+#save train
+save(glmnet_fit, file = paste0(glmnet_dir, "glmnet_fit.RData"))
+saveRDS(glmnet_fit, file = paste0(glmnet_dir, "glmnet_fit.rds"))
+
+#save ROC
+save(glmnet_result_roc, file = paste0(glmnet_dir, "glmnet_result_roc.RData"))
+saveRDS(glmnet_result_roc, file = paste0(glmnet_dir, "glmnet_result_roc.rds"))
+
+# save confusion matrix
+save(glmnet_conf_matrix, file = paste0(glmnet_dir, "glmnet_conf_matrix.RData"))
+saveRDS(glmnet_conf_matrix, file = paste0(glmnet_dir, "glmnet_conf_matrix.rds"))
+
+# clean
+rm(ctrl, test_data, train_data, glmnetProbs, rdaGrid, glmnetClasses)
+rm(glmnet_conf_matrix, glmnet_fit, glmnet_result_roc)

@@ -3,6 +3,8 @@
 load(paste0(intermediate_file_dir, "data_covid.RData"))
 #data_covid <- readRDS(paste0(intermediate_file_dir,"data_covid.rds"))
 
+# levels
+levels(data_covid$outcome) <- c("Nosurvivor","Survivor")
 
 # data spit percent
 percent <- 0.7
@@ -18,10 +20,6 @@ set.seed(123)
 train_list<- createDataPartition(data_covid$outcome, p = percent, list = FALSE)
 train_data<- data_covid[train_list,]
 test_data<- data_covid[-train_list,]
-
-data_covid$outcome
-test_data$outcome
-train_data$outcome
 
 # Clean and save
 save(train_data, file = paste0(intermediate_file_dir, "train_data.RData"))
