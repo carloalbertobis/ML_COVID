@@ -2,9 +2,10 @@
 nb_dir <- naive_bayes_dir
 
 # load
-load(paste0(intermediate_file_dir, "train_data.RData"))
-load(paste0(intermediate_file_dir, "test_data.RData"))
-load(paste0(intermediate_file_dir, "ctrl.RData"))
+test_data <- readRDS(paste0(intermediate_file_dir,"test_data.rds"))
+train_data <- readRDS(paste0(intermediate_file_dir,"train_data.rds"))
+ctrl <- readRDS(paste0(intermediate_file_dir,"ctrl.rds"))
+ctrl_fit <- readRDS(paste0(intermediate_file_dir,"ctrl_fit.rds"))
 
 # train svm
 nb_fit <- train(outcome ~ .,data = train_data,method = "nb", trControl=ctrl, tuneLength=10)
@@ -15,9 +16,9 @@ rdaGrid <- nb_fit$bestTune
 rdaGrid2 <- nb_fit2$bestTune
 rdaGrid3 <- nb_fit3$bestTune
 
-nb_fit <- train(outcome ~ .,data = train_data, method = "nb", trControl=ctrl, tuneGrid = rdaGrid)
-nb_fit2 <- train(outcome ~ .,data = train_data, method = "nb", trControl=ctrl, tuneGrid = rdaGrid2)
-nb_fit3 <- train(outcome ~ .,data = train_data, method = "nb", trControl=ctrl, tuneGrid = rdaGrid3)
+nb_fit <- train(outcome ~ .,data = train_data, method = "nb", trControl=ctrl_fit, tuneGrid = rdaGrid)
+nb_fit2 <- train(outcome ~ .,data = train_data, method = "nb", trControl=ctrl_fit, tuneGrid = rdaGrid2)
+nb_fit3 <- train(outcome ~ .,data = train_data, method = "nb", tuneGrid = rdaGrid3)
 
 # predict
 nbClasses <- predict(nb_fit, newdata = test_data)
@@ -37,28 +38,24 @@ nb_result_roc <- roc(test_data$outcome, nbProbs$Nosurvivor)
 nb_result_roc2 <- roc(test_data$outcome, nbProbs2$Nosurvivor)
 nb_result_roc3 <- roc(test_data$outcome, nbProbs3$Nosurvivor)
 
+# load table
+table_con_matrix <- readRDS(paste0(output_dir, "table_con_matrix.rds"))
+table_con_matrix$"Naive Bayes"  <- c(round(nb_result_roc$auc, 3) ,round(nb_conf_matrix$byClass, 3))
+saveRDS(table_con_matrix, file = paste0(output_dir, "table_con_matrix.rds"))
+
 #save train
-save(nb_fit, file = paste0(nb_dir, "nb_fit.RData"))
 saveRDS(nb_fit, file = paste0(nb_dir, "nb_fit.rds"))
-save(nb_fit2, file = paste0(nb_dir, "nb_fit2.RData"))
 saveRDS(nb_fit2, file = paste0(nb_dir, "nb_fit2.rds"))
-save(nb_fit3, file = paste0(nb_dir, "nb_fit3.RData"))
 saveRDS(nb_fit3, file = paste0(nb_dir, "nb_fit3.rds"))
 
 #save ROC
-save(nb_result_roc, file = paste0(nb_dir, "nb_result_roc.RData"))
 saveRDS(nb_result_roc, file = paste0(nb_dir, "nb_result_roc.rds"))
-save(nb_result_roc2, file = paste0(nb_dir, "nb_result_roc2.RData"))
 saveRDS(nb_result_roc2, file = paste0(nb_dir, "nb_result_roc2.rds"))
-save(nb_result_roc3, file = paste0(nb_dir, "nb_result_roc3.RData"))
 saveRDS(nb_result_roc3, file = paste0(nb_dir, "nb_result_roc3.rds"))
 
 # save confusion matrix
-save(nb_conf_matrix, file = paste0(nb_dir, "nb_conf_matrix.RData"))
 saveRDS(nb_conf_matrix, file = paste0(nb_dir, "nb_conf_matrix.rds"))
-save(nb_conf_matrix2, file = paste0(nb_dir, "nb_conf_matrix2.RData"))
 saveRDS(nb_conf_matrix2, file = paste0(nb_dir, "nb_conf_matrix2.rds"))
-save(nb_conf_matrix3, file = paste0(nb_dir, "nb_conf_matrix3.RData"))
 saveRDS(nb_conf_matrix3, file = paste0(nb_dir, "nb_conf_matrix3.rds"))
 
 

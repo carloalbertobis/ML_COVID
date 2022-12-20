@@ -1,4 +1,24 @@
 
+#load confusion matrix
+
+
+
+
+# create table
+table_con_matrix <- data.table()
+table_con_matrix$Metricas <- c( "AUC" ,row.names(data.frame(svm_conf_matrix_linear$byClass)))
+
+table_con_matrix$"SVM Linear"  <- c(glm_result_roc$auc ,round(svm_conf_matrix_linear$byClass, 3))
+table_con_matrix$"SVM Radial"  <- round(svm_conf_matrix_radial$byClass, 3)
+
+
+#save table
+
+kable(table_con_matrix)
+
+
+
+
 # load roc
 load(paste0(dir_list[1],"glm_result_roc.Rdata"))
 load(paste0(dir_list[2],"rf_result_roc.Rdata"))

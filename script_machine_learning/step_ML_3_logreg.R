@@ -1,11 +1,8 @@
 
 # Logistic Regression
-load(paste0(intermediate_file_dir, "train_data.RData"))
-load(paste0(intermediate_file_dir, "test_data.RData"))
-load(paste0(intermediate_file_dir, "ctrl.RData"))
-
-#test_data <- readRDS(paste0(data_sample_dir,"test_data.rds"))
-#train_data <- readRDS(paste0(data_sample_dir,"train_data.rds"))
+test_data <- readRDS(paste0(intermediate_file_dir,"test_data.rds"))
+train_data <- readRDS(paste0(intermediate_file_dir,"train_data.rds"))
+ctrl <- readRDS(paste0(intermediate_file_dir,"ctrl.rds"))
 
 #cambio levels
 levels(train_data$outcome) <- c("Nosurvivor","Survivor")
@@ -41,6 +38,14 @@ glm_conf_matrix <- confusionMatrix(data = glmClasses, test_data$outcome)
 #AUC
 glm_result_roc <- roc(test_data$outcome, glmProbs$Nosurvivor)
 
+# create table
+table_con_matrix <- data.table()
+table_con_matrix$Metricas <- c( "AUC" ,row.names(data.frame(glm_conf_matrix$byClass)))
+table_con_matrix$"Log Reg"  <- c(round(glm_result_roc$auc, 3) ,round(glm_conf_matrix$byClass, 3))
+saveRDS(table_con_matrix, file = paste0(output_dir, "table_con_matrix.rds"))
+
+
+
 #################################
 #library(ROCR)
 #glmProbs <- predict(glm_fit_aic, newdata = test_data, type = "prob")
@@ -56,23 +61,19 @@ glm_result_roc <- roc(test_data$outcome, glmProbs$Nosurvivor)
 ######################################
 
 #save fit 
-save(glm_fit_aic, file = paste0(glm_dir, "glm_fit_aic.RData"))
-saveRDS(glm_fit_aic, file = paste0(glm_dir, "glm_fit_aic.rds"))
+saveRDS(glm_fit_aic, file = paste0(log_reg_dir, "glm_fit_aic.rds"))
         
 # save ROC
-save(glm_result_roc, file = paste0(glm_dir, "glm_result_roc.RData"))
-saveRDS(glm_result_roc, file = paste0(glm_dir, "glm_result_roc.rds"))
+saveRDS(glm_result_roc, file = paste0(log_reg_dir, "glm_result_roc.rds"))
 
 # save confusion matrix
-save(glm_conf_matrix, file = paste0(glm_dir, "glm_conf_matrix.RData"))
-saveRDS(glm_conf_matrix, file = paste0(glm_dir, "glm_conf_matrix.rds"))
+saveRDS(glm_conf_matrix, file = paste0(log_reg_dir, "glm_conf_matrix.rds"))
 
 # save formula model AIC
-save(formula_glm_aic_model, file = paste0(glm_dir, "formula_glm_aic_model.RData"))
-saveRDS(formula_glm_aic_model, file = paste0(glm_dir, "formula_glm_aic_model.rds"))
+saveRDS(formula_glm_aic_model, file = paste0(log_reg_dir, "formula_glm_aic_model.rds"))
 
 #clean
-rm(glm_result_roc, glm_conf_matrix, aic_model, ctrl, glm_aic_model, glm_fit_aic, glm_fit_full, glm_full_model, glmProbs, test_data, train_data)
+rm(glm_result_roc, glm_conf_matrix, aic_model, ctrl, glm_aic_model, glm_fit_aic, glm_fit_full, glm_full_model, glmProbs, test_data, train_data, table_con_matrix)
 
 
 
