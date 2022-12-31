@@ -1,0 +1,24 @@
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+\pagebreak
+
+# Annex - Variables
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE}
+library(knitr)
+data_EIN_dir <- "D:/GitHub/ML_COVID/data_einstein/"
+variabili <- readRDS(paste0(data_EIN_dir,"variabili.rds"))
+kable(variabili, col.names = c("Columna 1", "Columna 2", "Columna 3"))
+```
+
+\pagebreak
+
+
+
+
+
+
+

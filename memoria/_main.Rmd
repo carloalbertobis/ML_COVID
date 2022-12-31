@@ -1,0 +1,202 @@
+---
+title: "ML_COVID_Memoria"
+author: "Carlo Alberto Bissacco"
+date: "12-01-2023"
+lang: es
+knit: "bookdown::render_book"
+output: 
+  bookdown::pdf_book:
+   keep_tex: yes
+   toc: yes
+   #rticles::elsevier_article:
+   # keep_tex: true
+   # citation_package: natbib
+  html_document:
+   toc: yes
+link-citations: yes
+link-bibliography : yes
+notes-after-punctuation : TRUE
+linkcolor: blue
+abstract: |
+ SCRIVERE QUI ABSTRACT pfogbkeopkgggktktkt rgortofoo 
+ ooooooooooooopfeokbtprbbtotgobkovmsdvl fdkmvbsnvpgdfkfj
+ nbkjgfnbgjnblkmvklgñklovkggkkkgeprokw
+keywords: |
+  SCRIVERE QUI KEYWARDS
+csl : elsevier-with-titles.csl
+bibliography: scholar1.bib
+#rmd_files: ["02_Test.Rmd","01_TestXXX.Rmd"]
+---
+
+  
+
+
+
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+
+## R Markdown XXXX
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see 
+
+When you click the **** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+Note that the  parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+<!--chapter:end:01_Introduccion.Rmd-->
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see 
+
+When you click the **** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+Note that the  parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+come diceva [@obermeyer2016predicting]
+
+<!--chapter:end:02_Material_Metods.Rmd-->
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see 
+
+When you click the **** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+Note that the  parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+come diceva [@obermeyer2016predicting]
+
+<!--chapter:end:03_Modelos.Rmd-->
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see 
+
+When you click the **** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+Note that the  parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+come diceva [@obermeyer2016predicting]
+
+<!--chapter:end:04_Stat_An.Rmd-->
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see 
+
+When you click the **** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+Note that the  parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+come diceva [@obermeyer2016predicting]
+
+<!--chapter:end:05_Resultados.Rmd-->
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see 
+
+When you click the **** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+Note that the  parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+come diceva [@obermeyer2016predicting]
+
+<!--chapter:end:06_Disc_Conc.Rmd-->
+
+
+
+\@caret
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NULL)
+```
+
+\pagebreak
+
+# titolo 1
+
+## titolo2
+
+come diceva [@obermeyer2016predicting]
+
+come diceva @obermeyer2016predicting
+
+come diceva anche la'ltreo idiota @couronne2018random
+
+```{r eval=FALSE, include=FALSE}
+formula(glm_aic_model)
+
+cbind("Estimate"=coef(summary(glm_aic_model))[,1], "Odds"=exp(coef(glm_aic_model)), coef(summary(glm_aic_model))[,2:4])%>%
+  kable(format="pandoc", round(3))
+```
+
+## titolo metodologia
+
+```{r}
+
+
+```
+
+\pagebreak
+
+# Referencias Bibliográficas
+
+<!--chapter:end:90_ReferenciasBibliograficas.Rmd-->
+

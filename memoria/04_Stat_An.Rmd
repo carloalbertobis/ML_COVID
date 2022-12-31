@@ -1,18 +1,101 @@
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+
+```{r include=FALSE}
+library(arsenal)
+library(knitr)
+
+data_covid_ein <- readRDS("D:/GitHub/ML_COVID/data_einstein/data_covid_ein.rds")
+data_covid_ein_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/data_covid_ein_lite.rds")
+
+table_sev_vs_age <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_sev_vs_age.rds")
+table_sev_vs_age_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_sev_vs_age_lite.rds")
+
+table_covid_vs_age <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_covid_vs_age.rds")
+table_covid_vs_age_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_covid_vs_age_lite.rds")
+
+table_ein <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_ein.rds")
+table_ein_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_ein_lite.rds")
+
+plot_intro_ein <- readRDS("D:/GitHub/ML_COVID/data_einstein/plot_intro_ein.rds")
+plot_intro_ein_no_IMP <- readRDS("D:/GitHub/ML_COVID/data_einstein/plot_intro_ein_no_IMP.rds")
+plot_intro_ein_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/plot_intro_ein_lite.rds")
+```
+
+# Analisis Exploratorio y Estadistico
+
+La preparacion del dataset se puede encontrar en GitHub, **`pre_step_data_einstein.R`**:
+
+-   Las variables se han estandardizados y centrado previamente, por al razon que algunos algortimos funcionan mejor con los datos escalados.
+
+-   Se han removido errores, o caracteres especiales, simbolos etc.
+
+-   Se han convertido columnas de **character** a **factor, logical** a **factor,** o algunas variables a numerical.
+
+-   Se ha creado el **output**, la variable dependiente **care.**
+
+```{r echo=FALSE}
+library(readxl)
+data<- read_excel("D:/GitHub/ML_COVID/data_einstein/dataset.xlsx")
+countNA<-function(x){sum(is.na(x))}
+x<-apply(data, 2, countNA)/nrow(data)
+plot(density(x/nrow(data)), main="Porcentual de Missing Values", xlab="Porcentual de NA por variable")
+```
+
+El dataset original, tiene un alto numero de observaciones y variables con **missing values**. Desde el dataset original se han filtrado los datos faltantes en dos maneras.
+
+-   En el primer caso se han eliminado pacientes las vcariables que tiene una porcentual de 95% de datos faltantes. Se eliminas tambien las observaciones que tienen por lo menos diez variables con datos, y se imputan lo datos faltantes con la funcion **rfImpute()**
+
+-   En el otro caso se han filtrado las variables con pocos valores, y se han quitado las observaciones que continuaban en tener datos faltantes, de esta forma el dataset se ha notablemente reducido por numero de observaciones y variables. Pero en esto caso no hay datos faltantes.
+
+Como se puede notar en la tabla aqui abajo, todavia hay datos faltantes.
+
+```{r echo=FALSE}
+plot_intro_ein
+```
+
+Despues que se ha imputato los datos faltantes:
+
+```{r echo=FALSE}
+plot_intro_ein_no_IMP
+```
 
 
-## R Markdown
+Como se puede ver la segunda opcion es no tener datos faltantes, opcion que se podria tener en cuenta si el numero de observacione fuese suficientemente grande, y sin perder demasiado variables.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see 
+```{r echo=FALSE}
+plot_intro_ein_lite
+```
 
-When you click the **** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Las variables del dataset original estan en el **Anexo - Variables**. Las variables que quedan en los dos dataset, estan resumida en las dos tablas estadisticas en **Anexo 2 - Tablas Estadisticas 1** para el primer caso, y **Anexo 3 - Tablas Estadisticas 2** para el segundo caso.
 
+## Primer caso
 
+En las dos tablas se pueden ver los casos positivos y negativos se parado por quantiles de edad. Como Se puede notar el dataset original se ha utilizado la poblacion y dividida por 20 grupos de tamaño igual.
 
-## Including Plots
+En esta tabla se puede notar los casos de positividad estan repartidos por cuantiles de edad.
 
-You can also embed plots, for example:
+```{r echo=FALSE}
+kable(table_covid_vs_age)
+```
 
-Note that the  parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+En esta tablas relaciona la severidad covid con los cuantiles de edad,
 
+```{r echo=FALSE}
+kable(table_sev_vs_age)
+```
 
-come diceva [@obermeyer2016predicting]
+## Segundo caso
+
+Es mas evidente con leste dataset como los quantiles mas altos tengan mas casos de positividad, y de necesidad de cuidado intensivo.,
+
+```{r echo=FALSE}
+kable(table_covid_vs_age_lite)
+```
+
+```{r echo=FALSE}
+kable(table_sev_vs_age_lite)
+```

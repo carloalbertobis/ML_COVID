@@ -1,0 +1,42 @@
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+\pagebreak
+
+# Anexo - Tablas Estadisticas 2
+
+```{r include=FALSE}
+library(arsenal)
+library(knitr)
+
+data_covid_ein <- readRDS("D:/GitHub/ML_COVID/data_einstein/data_covid_ein.rds")
+data_covid_ein_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/data_covid_ein_lite.rds")
+
+table_sev_vs_age <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_sev_vs_age.rds")
+table_sev_vs_age_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_sev_vs_age_lite.rds")
+
+table_covid_vs_age <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_covid_vs_age.rds")
+table_covid_vs_age_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_covid_vs_age_lite.rds")
+
+table_ein <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_ein.rds")
+table_ein_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/table_ein_lite.rds")
+
+plot_intro_ein <- readRDS("D:/GitHub/ML_COVID/data_einstein/plot_intro_ein.rds")
+plot_intro_ein_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/plot_intro_ein_lite.rds")
+```
+
+```{r echo=FALSE}
+kable(table_ein_lite)
+```
+
+
+\pagebreak
+
+
+
+
+
+
+

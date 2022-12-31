@@ -37,5 +37,14 @@ suppressPackageStartupMessages(library(kernlab, quietly = TRUE))
 if (!require(knitr)) {install.packages("knitr")}
 suppressPackageStartupMessages(library(knitr, quietly = TRUE))
 
+if (!require(DataExplorer)) {install.packages("DataExplorer")}
+suppressPackageStartupMessages(library(DataExplorer, quietly = TRUE))
 
-library(pROC)
+if (!require(pROC)) {install.packages("pROC")}
+suppressPackageStartupMessages(library(pROC, quietly = TRUE))
+
+if (!require(arsenal)) {install.packages("arsenal")}
+suppressPackageStartupMessages(library(arsenal, quietly = TRUE))
+
+if (!require(randomForest)) {install.packages("randomForest")}
+suppressPackageStartupMessages(library(randomForest, quietly = TRUE))

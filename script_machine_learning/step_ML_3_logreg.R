@@ -3,13 +3,12 @@
 test_data <- readRDS(paste0(intermediate_file_dir,"test_data.rds"))
 train_data <- readRDS(paste0(intermediate_file_dir,"train_data.rds"))
 ctrl <- readRDS(paste0(intermediate_file_dir,"ctrl.rds"))
-
 #cambio levels
 levels(train_data$outcome) <- c("Nosurvivor","Survivor")
 levels(test_data$outcome) <- c("Nosurvivor","Survivor")
 
 # glm full model
-glm_full_model <- glm(outcome ~ .,data = train_data,  family = "binomial")
+glm_full_model <- train(outcome ~ .,data = train_data,  method = "polr",trControl=ctrl)
 formula_glm_full <- formula(glm_full_model)
 #summary(glm_model)
 
@@ -70,7 +69,7 @@ saveRDS(glm_result_roc, file = paste0(log_reg_dir, "glm_result_roc.rds"))
 saveRDS(glm_conf_matrix, file = paste0(log_reg_dir, "glm_conf_matrix.rds"))
 
 # save formula model AIC
-saveRDS(formula_glm_aic_model, file = paste0(log_reg_dir, "formula_glm_aic_model.rds"))
+saveRDS(formula_glm_aic_model, file = paste0(log_reg_dir, "formula_glm_aic_model.rds"))}
 
 #clean
 rm(glm_result_roc, glm_conf_matrix, aic_model, ctrl, glm_aic_model, glm_fit_aic, glm_fit_full, glm_full_model, glmProbs, test_data, train_data, table_con_matrix)

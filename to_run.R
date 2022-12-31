@@ -1,8 +1,8 @@
 rm(list=ls(all.names=TRUE))
 
 #sample <- "SID"
-#sample <- "ein"
-sample <- "sample"
+sample <- "ein"
+#sample <- "sample"
 
 #set path libraries functions
 if (!require("rstudioapi")) install.packages("rstudioapi")
@@ -13,18 +13,27 @@ source(paste0(projectFolder, "/pack_param_funct/packages.R"))
 #source(paste0(projectFolder, "/pack_param_funct/functions.R"))
 
 
+
 #set the directory where the file is saved as the working directory
+source("script_data_analysis/pre_step_data_einstein.R") 
 
+source("script_data_analysis/step_1_data_analysis.R") 
+#render(paste0(memoria_dir, "04_Stat_An.Rmd"), output_dir = output_dir)
 
+# data prep
 
+source("script_machine_learning/ein_step_0_datasplit.R") 
 
+source("script_machine_learning/step_ML_2_crossvalidation.R") 
 
 
 # script_machine_learning
 
-source("script_machine_learning/step_ML_1_datasplit.R") 
+source("script_machine_learning/ein_step_1_polr.R") 
 
-source("script_machine_learning/step_ML_2_crossvalidation.R") 
+
+
+
 
 source("script_machine_learning/step_ML_3_logreg.R") 
 
