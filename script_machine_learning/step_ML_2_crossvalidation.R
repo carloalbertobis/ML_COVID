@@ -15,7 +15,7 @@ ctrl <- trainControl(method = "repeatedcv",
 # Clean and save
 
 saveRDS(ctrl, file = paste0(intermediate_file_dir,"ctrl.rds"))
-rm(ctrl)
+#rm(ctrl)
 
 
 
@@ -34,4 +34,4 @@ ctrl_fit <- trainControl(method = "repeatedcv",
                      verboseIter = F)
 
 saveRDS(ctrl_fit, file = paste0(intermediate_file_dir,"ctrl_fit.rds"))
-rm(ctrl_fit)
+#rm(ctrl_fit)

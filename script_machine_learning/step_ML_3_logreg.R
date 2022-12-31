@@ -69,7 +69,7 @@ saveRDS(glm_result_roc, file = paste0(log_reg_dir, "glm_result_roc.rds"))
 saveRDS(glm_conf_matrix, file = paste0(log_reg_dir, "glm_conf_matrix.rds"))
 
 # save formula model AIC
-saveRDS(formula_glm_aic_model, file = paste0(log_reg_dir, "formula_glm_aic_model.rds"))}
+saveRDS(formula_glm_aic_model, file = paste0(log_reg_dir, "formula_glm_aic_model.rds"))
 
 #clean
 rm(glm_result_roc, glm_conf_matrix, aic_model, ctrl, glm_aic_model, glm_fit_aic, glm_fit_full, glm_full_model, glmProbs, test_data, train_data, table_con_matrix)

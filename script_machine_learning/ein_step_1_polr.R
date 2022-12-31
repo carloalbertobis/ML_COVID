@@ -11,6 +11,9 @@ xxx <- polr(care ~ .,data = train_data_ein_lite)
 zzz <- stepAIC(xxx, trace = FALSE)
 zzz <- formula(zzz)
 glm_fit_aic <- train(zzz, data = train_data_ein_lite,  method = "polr", trControl=ctrl)
+
+saveRDS(glm_fit_aic, file = paste0(svm_dir, "polr_lite.rds"))
+
 glmClasses <- predict(glm_fit_aic, newdata = test_data_ein_lite)
 glmProbs <- predict(glm_fit_aic, newdata = test_data_ein_lite, type = "prob")
 glm_conf_matrix <- confusionMatrix(data = glmClasses, test_data_ein_lite$care)
@@ -37,6 +40,9 @@ xxx <- polr(care ~ .,data = train_data)
 zzz <- stepAIC(xxx, trace = FALSE)
 zzz <- formula(zzz)
 glm_fit_aic <- train(zzz, data = train_data,  method = "polr", trControl=ctrl)
+
+saveRDS(glm_fit_aic, file = paste0(svm_dir, "polr_imp.rds"))
+
 glmClasses <- predict(glm_fit_aic, newdata = test_data)
 glmProbs <- predict(glm_fit_aic, newdata = test_data, type = "prob")
 glm_conf_matrix <- confusionMatrix(data = glmClasses, test_data$care)
@@ -58,4 +64,5 @@ table_sens_spec_imp <- table_sens_spec_imp[,c(6,1:5)]
 saveRDS(table_sens_spec_imp, file = paste0(output_dir, "table_sens_spec_imp.rds"))
 
 
-
+rm(glm_result_roc, glm_conf_matrix, aic_model, ctrl, glm_aic_model, glm_fit_aic, glm_fit_full, glm_full_model, glmProbs, table_con_matrix)
+rm(table_sens_spec_imp, table_sens_spec, glmClasses, xxx, zzz)

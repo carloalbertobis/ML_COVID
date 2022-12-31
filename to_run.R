@@ -30,31 +30,33 @@ source("script_machine_learning/step_ML_2_crossvalidation.R")
 # script_machine_learning
 
 source("script_machine_learning/ein_step_1_polr.R") 
+source("script_machine_learning/ein_step_2_rf.R")
+source("script_machine_learning/ein_step_3_svm.R")
+source("script_machine_learning/ein_step_4_nb.R")
+source("script_machine_learning/ein_step_5_knn.R")
+source("script_machine_learning/ein_step_6_ann.R")
+source("script_machine_learning/ein_step_7_glmnet.R")
+source("script_machine_learning/ein_step_8_xgbTree.R")
+source("script_machine_learning/ein_step_9_varimp.R")
+
+###### estimar negativos riesgo
 
 
+###### positividad covid traves analisis
 
 
-
-
+###### appunti impute piu grande / ottimizzare algoritmi / togliere positivita covid
 
 
 
 source("script_machine_learning/step_ML_3_logreg.R") 
-
 source("script_machine_learning/step_ML_4_randomforest.R") 
-
 source("script_machine_learning/step_ML_5_SVM.R") 
-
 source("script_machine_learning/step_ML_6_naivebayes.R") 
-
 source("script_machine_learning/step_ML_7_knn.R") 
-
 source("script_machine_learning/step_ML_8_ann.R")
-
 source("script_machine_learning/step_ML_9_glmnet.R") 
-
 source("script_machine_learning/step_ML_10_xgboost.R") 
-
 source("script_machine_learning/step_ML_12_var_imp.R") 
 
 
