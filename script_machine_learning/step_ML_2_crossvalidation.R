@@ -19,8 +19,6 @@ saveRDS(ctrl, file = paste0(intermediate_file_dir,"ctrl.rds"))
 
 
 
-
-
 set.seed(123)
 ctrl_fit <- trainControl(method = "repeatedcv", 
                      number = 10,

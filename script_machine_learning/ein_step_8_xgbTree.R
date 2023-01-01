@@ -1,21 +1,17 @@
-test_data <- readRDS(paste0(intermediate_file_dir,"test_data_ein.rds"))
-train_data <- readRDS(paste0(intermediate_file_dir,"train_data_ein.rds"))
-test_data_ein_lite <- readRDS(paste0(intermediate_file_dir,"test_data_ein_lite.rds"))
-train_data_ein_lite <- readRDS(paste0(intermediate_file_dir,"train_data_ein_lite.rds"))
-ctrl <- readRDS(paste0(intermediate_file_dir,"ctrl.rds"))
-
-table_auc_acc_kappa <- readRDS(paste0(output_dir, "table_auc_acc_kappa.rds"))
-table_sens_spec <- readRDS(paste0(output_dir, "table_sens_spec.rds"))
-table_auc_acc_kappa_imp <- readRDS(paste0(output_dir, "table_auc_acc_kappa_imp.rds"))
-table_sens_spec_imp <- readRDS(paste0(output_dir, "table_sens_spec_imp.rds"))
-
 
 # lite
 # xgbTree
 set.seed(123)
-xgbTree_for_rda <- train(care ~ .,data = train_data_ein_lite, method = "xgbTree",trControl=ctrl)
+xgbTree_for_rda <- train(care ~ .,data = train_data_ein_lite, trControl = ctrl,
+                         #tuneGrid = grid_default,
+                         method = "xgbTree",
+                         verbose = TRUE,
+                         verbosity = 0)
+
 rdaGrid = xgbTree_for_rda$bestTune
 xgbTree_fit <- train(care ~ .,data = train_data_ein_lite,method = "xgbTree", trControl=ctrl_fit, tuneGrid = rdaGrid)
+
+saveRDS(xgbTree_fit, file = paste0(data_EIN_fit, "xgbTree_lite.rds"))
 
 xgbTreeClasses <- predict(xgbTree_fit, newdata = test_data_ein_lite)
 xgbTreeProbs <- predict(xgbTree_fit, newdata = test_data_ein_lite, type = "prob")
@@ -43,6 +39,8 @@ set.seed(123)
 xgbTree_for_rda <- train(care ~ .,data = train_data, method = "xgbTree",trControl=ctrl)
 rdaGrid = xgbTree_for_rda$bestTune
 xgbTree_fit <- train(care ~ .,data = train_data, method = "xgbTree", trControl=ctrl_fit, tuneGrid = rdaGrid)
+
+saveRDS(xgbTree_fit, file = paste0(data_EIN_fit, "xgbTree_imp.rds"))
 
 xgbTreeClasses <- predict(xgbTree_fit, newdata = test_data)
 xgbTreeProbs <- predict(xgbTree_fit, newdata = test_data, type = "prob")

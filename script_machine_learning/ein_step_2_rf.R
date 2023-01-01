@@ -1,15 +1,12 @@
-
 test_data <- readRDS(paste0(intermediate_file_dir,"test_data_ein.rds"))
 train_data <- readRDS(paste0(intermediate_file_dir,"train_data_ein.rds"))
 test_data_ein_lite <- readRDS(paste0(intermediate_file_dir,"test_data_ein_lite.rds"))
-train_data_ein_lite <- readRDS(paste0(intermediate_file_dir,"train_data_ein_lite.rds"))
+train_data_ein_lite <- (readRDS(paste0(intermediate_file_dir,"train_data_ein_lite.rds")))
 ctrl <- readRDS(paste0(intermediate_file_dir,"ctrl.rds"))
-
 table_auc_acc_kappa <- readRDS(paste0(output_dir, "table_auc_acc_kappa.rds"))
 table_sens_spec <- readRDS(paste0(output_dir, "table_sens_spec.rds"))
 table_auc_acc_kappa_imp <- readRDS(paste0(output_dir, "table_auc_acc_kappa_imp.rds"))
 table_sens_spec_imp <- readRDS(paste0(output_dir, "table_sens_spec_imp.rds"))
-
 
 # lite
 # train random forest
@@ -17,6 +14,8 @@ set.seed(123)
 rf_for_rda <- train(care ~ .,data = train_data_ein_lite, method = "rf",trControl=ctrl)
 rdaGrid = rf_for_rda$bestTune
 rf_fit <- train(care ~ .,data = train_data_ein_lite,method = "rf", trControl=ctrl_fit, tuneGrid = rdaGrid)
+
+saveRDS(rf_fit, file = paste0(data_EIN_fit, "rf_lite.rds"))
 
 rfClasses <- predict(rf_fit, newdata = test_data_ein_lite)
 rfProbs <- predict(rf_fit, newdata = test_data_ein_lite, type = "prob")
@@ -45,6 +44,8 @@ rf_for_rda <- train(care ~ .,data = train_data, method = "rf",trControl=ctrl)
 rdaGrid = rf_for_rda$bestTune
 rf_fit <- train(care ~ .,data = train_data, method = "rf", trControl=ctrl_fit, tuneGrid = rdaGrid)
 
+saveRDS(rf_fit, file = paste0(data_EIN_fit, "rf_imp.rds"))
+
 rfClasses <- predict(rf_fit, newdata = test_data)
 rfProbs <- predict(rf_fit, newdata = test_data, type = "prob")
 rf_conf_matrix <- confusionMatrix(data = rfClasses , test_data$care)
@@ -64,3 +65,5 @@ time <- time[,c(6,1:5)]
 
 table_sens_spec_imp <- rbind(table_sens_spec_imp, time) 
 saveRDS(table_sens_spec_imp, file = paste0(output_dir, "table_sens_spec_imp.rds"))
+
+rm(time, rfClasses, rfProbs, rf_result_roc, rf_conf_matrix, rf_fit, rf_for_rda, rdaGrid)

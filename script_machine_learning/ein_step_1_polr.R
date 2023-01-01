@@ -1,9 +1,8 @@
 
-
 test_data <- readRDS(paste0(intermediate_file_dir,"test_data_ein.rds"))
 train_data <- readRDS(paste0(intermediate_file_dir,"train_data_ein.rds"))
 test_data_ein_lite <- readRDS(paste0(intermediate_file_dir,"test_data_ein_lite.rds"))
-train_data_ein_lite <- readRDS(paste0(intermediate_file_dir,"train_data_ein_lite.rds"))
+train_data_ein_lite <- (readRDS(paste0(intermediate_file_dir,"train_data_ein_lite.rds")))
 ctrl <- readRDS(paste0(intermediate_file_dir,"ctrl.rds"))
 
 #### lite
@@ -12,7 +11,7 @@ zzz <- stepAIC(xxx, trace = FALSE)
 zzz <- formula(zzz)
 glm_fit_aic <- train(zzz, data = train_data_ein_lite,  method = "polr", trControl=ctrl)
 
-saveRDS(glm_fit_aic, file = paste0(svm_dir, "polr_lite.rds"))
+saveRDS(glm_fit_aic, file = paste0(data_EIN_fit, "polr_lite.rds"))
 
 glmClasses <- predict(glm_fit_aic, newdata = test_data_ein_lite)
 glmProbs <- predict(glm_fit_aic, newdata = test_data_ein_lite, type = "prob")
@@ -41,7 +40,7 @@ zzz <- stepAIC(xxx, trace = FALSE)
 zzz <- formula(zzz)
 glm_fit_aic <- train(zzz, data = train_data,  method = "polr", trControl=ctrl)
 
-saveRDS(glm_fit_aic, file = paste0(svm_dir, "polr_imp.rds"))
+saveRDS(glm_fit_aic, file = paste0(data_EIN_fit, "polr_imp.rds"))
 
 glmClasses <- predict(glm_fit_aic, newdata = test_data)
 glmProbs <- predict(glm_fit_aic, newdata = test_data, type = "prob")
@@ -55,14 +54,14 @@ saveRDS(table_auc_acc_kappa_imp, file = paste0(output_dir, "table_auc_acc_kappa_
 
 table_sens_spec_imp <- data.table()
 table_sens_spec_imp$Test <- c(colnames(data.frame(glm_conf_matrix$byClass))) 
-table_sens_spec_imp$discharged <- c(round(glm_conf_matrix$byClass, 3)[1,])
-table_sens_spec_imp$regular_ward <- c(round(glm_conf_matrix$byClass, 3)[2,])
-table_sens_spec_imp$semi_intensive <- c(round(glm_conf_matrix$byClass, 3)[3,])
-table_sens_spec_imp$intensivec_care_unit <- c(round(glm_conf_matrix$byClass, 3)[4,])
+table_sens_spec_imp$"Discharged" <- c(round(glm_conf_matrix$byClass, 3)[1,])
+table_sens_spec_imp$"Regular Ward" <- c(round(glm_conf_matrix$byClass, 3)[2,])
+table_sens_spec_imp$"Semi Intensive"  <- c(round(glm_conf_matrix$byClass, 3)[3,])
+table_sens_spec_imp$"Intensivec Care Unit"  <- c(round(glm_conf_matrix$byClass, 3)[4,])
 table_sens_spec_imp[, `:=`("Machine Learning" = "OLR")]
 table_sens_spec_imp <- table_sens_spec_imp[,c(6,1:5)]
 saveRDS(table_sens_spec_imp, file = paste0(output_dir, "table_sens_spec_imp.rds"))
 
 
-rm(glm_result_roc, glm_conf_matrix, aic_model, ctrl, glm_aic_model, glm_fit_aic, glm_fit_full, glm_full_model, glmProbs, table_con_matrix)
-rm(table_sens_spec_imp, table_sens_spec, glmClasses, xxx, zzz)
+rm(glm_result_roc, glm_conf_matrix, glm_fit_aic, glmProbs)
+rm(glmClasses, xxx, zzz)

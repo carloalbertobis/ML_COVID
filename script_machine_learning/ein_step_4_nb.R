@@ -1,29 +1,19 @@
 
-test_data <- readRDS(paste0(intermediate_file_dir,"test_data_ein.rds"))
-train_data <- readRDS(paste0(intermediate_file_dir,"train_data_ein.rds"))
-test_data_ein_lite <- readRDS(paste0(intermediate_file_dir,"test_data_ein_lite.rds"))
-train_data_ein_lite <- readRDS(paste0(intermediate_file_dir,"train_data_ein_lite.rds"))
-ctrl <- readRDS(paste0(intermediate_file_dir,"ctrl.rds"))
-
-table_auc_acc_kappa <- readRDS(paste0(output_dir, "table_auc_acc_kappa.rds"))
-table_sens_spec <- readRDS(paste0(output_dir, "table_sens_spec.rds"))
-table_auc_acc_kappa_imp <- readRDS(paste0(output_dir, "table_auc_acc_kappa_imp.rds"))
-table_sens_spec_imp <- readRDS(paste0(output_dir, "table_sens_spec_imp.rds"))
-
-
 # lite
 # nb
 set.seed(123)
-nb_for_rda <- train(care ~ .,data = train_data_ein_lite, method = "nb",trControl=ctrl)
+nb_for_rda <- train(care ~ .,data = train_data_ein_lite, method = "nb", trControl=ctrl)
 rdaGrid = nb_for_rda$bestTune
-nb_fit <- train(care ~ .,data = train_data_ein_lite,method = "nb", trControl=ctrl_fit, tuneGrid = rdaGrid)
+nb_fit <- train(care ~ .,data = train_data_ein_lite,method = "nb", trControl=ctrl, tuneGrid = rdaGrid)
+
+saveRDS(nb_fit, file = paste0(data_EIN_fit, "nb_lite.rds"))
 
 nbClasses <- predict(nb_fit, newdata = test_data_ein_lite)
 nbProbs <- predict(nb_fit, newdata = test_data_ein_lite, type = "prob")
 nb_conf_matrix <- confusionMatrix(data = nbClasses , test_data_ein_lite$care)
 nb_result_roc <- multiclass.roc(test_data_ein_lite$care, nbProbs)
 
-table_auc_acc_kappa$nb <- c(round(nb_result_roc$auc, 3) ,round(nb_conf_matrix$overall, 3))
+table_auc_acc_kappa$NB <- c(round(nb_result_roc$auc, 3) ,round(nb_conf_matrix$overall, 3))
 saveRDS(table_auc_acc_kappa, file = paste0(output_dir, "table_auc_acc_kappa.rds"))
 
 time <- data.table()
@@ -43,14 +33,16 @@ saveRDS(table_sens_spec, file = paste0(output_dir, "table_sens_spec.rds"))
 set.seed(123)
 nb_for_rda <- train(care ~ .,data = train_data, method = "nb",trControl=ctrl)
 rdaGrid = nb_for_rda$bestTune
-nb_fit <- train(care ~ .,data = train_data, method = "nb", trControl=ctrl_fit, tuneGrid = rdaGrid)
+nb_fit <- train(care ~ .,data = train_data, method = "nb", trControl=ctrl, tuneGrid = rdaGrid)
+
+saveRDS(nb_fit, file = paste0(data_EIN_fit, "nb_imp.rds"))
 
 nbClasses <- predict(nb_fit, newdata = test_data)
 nbProbs <- predict(nb_fit, newdata = test_data, type = "prob")
 nb_conf_matrix <- confusionMatrix(data = nbClasses , test_data$care)
 nb_result_roc <- multiclass.roc(test_data$care, nbProbs)
 
-table_auc_acc_kappa_imp$nb <- c(round(nb_result_roc$auc, 3) ,round(nb_conf_matrix$overall, 3))
+table_auc_acc_kappa_imp$NB <- c(round(nb_result_roc$auc, 3) ,round(nb_conf_matrix$overall, 3))
 saveRDS(table_auc_acc_kappa_imp, file = paste0(output_dir, "table_auc_acc_kappa_imp.rds"))
 
 time <- data.table()

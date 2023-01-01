@@ -33,6 +33,7 @@ if (sample == "sample"){
 
 if (sample == "ein"){
   data_EIN_dir <- paste0(projectFolder, "/data_einstein/")
+  data_EIN_fit <- paste0(projectFolder, "/data_einstein/fit/")
   output_EIN_dir <- paste0(projectFolder, "/output_einstein/")
   intermediate_file_dir <- data_EIN_dir
   output_dir <- output_EIN_dir

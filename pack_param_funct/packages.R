@@ -48,3 +48,25 @@ suppressPackageStartupMessages(library(arsenal, quietly = TRUE))
 
 if (!require(randomForest)) {install.packages("randomForest")}
 suppressPackageStartupMessages(library(randomForest, quietly = TRUE))
+
+if (!require(glmnet)) {install.packages("glmnet")}
+suppressPackageStartupMessages(library(glmnet, quietly = TRUE))
+
+if (!require(e1071)) {install.packages("e1071")}
+suppressPackageStartupMessages(library(e1071, quietly = TRUE))
+
+if (!require(klaR)) {install.packages("klaR")}
+suppressPackageStartupMessages(library(klaR, quietly = TRUE))
+
+if (!require(readxl)) {install.packages("readxl")}
+suppressPackageStartupMessages(library(readxl, quietly = TRUE))
+
+if (!require(xgboost)) {install.packages("xgboost")}
+suppressPackageStartupMessages(library(xgboost, quietly = TRUE))
+
+if (!require(parallel)) {install.packages("parallel")}
+suppressPackageStartupMessages(library(parallel, quietly = TRUE))
+
+if (!require(parallelMap)) {install.packages("parallelMap")}
+suppressPackageStartupMessages(library(parallelMap, quietly = TRUE))
+parallelStartSocket(cpus = detectCores())

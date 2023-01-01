@@ -1,28 +1,28 @@
 
 
-polr_lite <- readRDS(paste0(data_EIN_dir, "polr_lite.rds"))
-polr_imp <- readRDS(paste0(data_EIN_dir, "polr_imp.rds"))
+polr_lite <- readRDS(paste0(data_EIN_fit, "polr_lite.rds"))
+polr_imp <- readRDS(paste0(data_EIN_fit, "polr_imp.rds"))
 
-rf_lite <- readRDS(paste0(data_EIN_dir, "rf_lite.rds"))
-rf_imp <- readRDS(paste0(data_EIN_dir, "rf_imp.rds"))
+rf_lite <- readRDS(paste0(data_EIN_fit, "rf_lite.rds"))
+rf_imp <- readRDS(paste0(data_EIN_fit, "rf_imp.rds"))
 
-svm_lite <- readRDS(paste0(data_EIN_dir, "svm_lite.rds"))
-svm_imp <- readRDS(paste0(data_EIN_dir, "svm_imp.rds"))
+svm_lite <- readRDS(paste0(data_EIN_fit, "svm_lite.rds"))
+svm_imp <- readRDS(paste0(data_EIN_fit, "svm_imp.rds"))
 
-xgbTree_lite <- readRDS(paste0(data_EIN_dir, "xgbTree_lite.rds"))
-xgbTree_imp <- readRDS(paste0(data_EIN_dir, "xgbTree_imp.rds"))
+xgbTree_lite <- readRDS(paste0(data_EIN_fit, "xgbTree_lite.rds"))
+xgbTree_imp <- readRDS(paste0(data_EIN_fit, "xgbTree_imp.rds"))
 
-nb_lite <- readRDS(paste0(data_EIN_dir, "nb_lite.rds"))
-nb_imp <- readRDS(paste0(data_EIN_dir, "nb_imp.rds"))
+nb_lite <- readRDS(paste0(data_EIN_fit, "nb_lite.rds"))
+nb_imp <- readRDS(paste0(data_EIN_fit, "nb_imp.rds"))
 
-knn_lite <- readRDS(paste0(data_EIN_dir, "knn_lite.rds"))
-knn_imp <- readRDS(paste0(data_EIN_dir, "knn_imp.rds"))
+knn_lite <- readRDS(paste0(data_EIN_fit, "knn_lite.rds"))
+knn_imp <- readRDS(paste0(data_EIN_fit, "knn_imp.rds"))
 
-ann_lite <- readRDS(paste0(data_EIN_dir, "ann_lite.rds"))
-ann_imp <- readRDS(paste0(data_EIN_dir, "ann_imp.rds"))
+ann_lite <- readRDS(paste0(data_EIN_fit, "ann_lite.rds"))
+ann_imp <- readRDS(paste0(data_EIN_fit, "ann_imp.rds"))
 
-glmnet_lite <- readRDS(paste0(data_EIN_dir, "glmnet_lite.rds"))
-glmnet_imp <- readRDS(paste0(data_EIN_dir, "glmnet_imp.rds"))
+glmnet_lite <- readRDS(paste0(data_EIN_fit, "glmnet_lite.rds"))
+glmnet_imp <- readRDS(paste0(data_EIN_fit, "glmnet_imp.rds"))
 
 ###########################################################
 
@@ -46,6 +46,19 @@ var_imp_temp <- setorder(var_imp_temp, -Value)
 var_imp_temp <- var_imp_temp[1:10,]
 
 var_imp <- cbind(var_imp, var_imp_temp)
+
+#xgbTree
+var_imp_temp <- data.table()
+var_imp_temp$XGB <- row.names((varImp(xgbTree_lite)$importance))
+var_imp_temp$Value <- ((varImp(xgbTree_lite)$importance))
+var_imp_temp <- setorder(var_imp_temp, -Value)
+var_imp_temp <- var_imp_temp[1:10,]
+
+var_imp <- cbind(var_imp, var_imp_temp)
+
+
+
+
 
 #svm
 var_imp_temp <- data.table()
@@ -95,15 +108,6 @@ var_imp_temp <- var_imp_temp[1:10,]
 var_imp <- cbind(var_imp, var_imp_temp)
 
 
-#xgbTree
-var_imp_temp <- data.table()
-var_imp_temp$XGB <- row.names((varImp(xgbTree_lite)$importance))
-var_imp_temp$Value <- ((varImp(xgbTree_lite)$importance))
-var_imp_temp <- setorder(var_imp_temp, -Value)
-var_imp_temp <- var_imp_temp[1:10,]
-
-var_imp <- cbind(var_imp, var_imp_temp)
-
 # SAVE
 saveRDS(var_imp, file = paste0(output_dir, "var_imp_lite.rds"))
 
@@ -129,6 +133,17 @@ var_imp_temp <- setorder(var_imp_temp, -Value)
 var_imp_temp <- var_imp_temp[1:10,]
 
 var_imp <- cbind(var_imp, var_imp_temp)
+
+#xgbTree
+var_imp_temp <- data.table()
+var_imp_temp$XGB <- row.names((varImp(xgbTree_imp)$importance))
+var_imp_temp$Value <- ((varImp(xgbTree_imp)$importance))
+var_imp_temp <- setorder(var_imp_temp, -Value)
+var_imp_temp <- var_imp_temp[1:10,]
+
+var_imp <- cbind(var_imp, var_imp_temp)
+
+
 
 #svm
 var_imp_temp <- data.table()
@@ -178,14 +193,6 @@ var_imp_temp <- var_imp_temp[1:10,]
 var_imp <- cbind(var_imp, var_imp_temp)
 
 
-#xgbTree
-var_imp_temp <- data.table()
-var_imp_temp$XGB <- row.names((varImp(xgbTree_imp)$importance))
-var_imp_temp$Value <- ((varImp(xgbTree_imp)$importance))
-var_imp_temp <- setorder(var_imp_temp, -Value)
-var_imp_temp <- var_imp_temp[1:10,]
-
-var_imp <- cbind(var_imp, var_imp_temp)
 
 # SAVE
 saveRDS(var_imp, file = paste0(output_dir, "var_imp_imp.rds"))

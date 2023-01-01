@@ -1,4 +1,4 @@
-library(readxl)
+
 data_covid <- read_excel(paste0(data_EIN_dir, "dataset.xlsx"))
 
 treat_names <- c('patient_id' , 'age_quantile' , 'cov_result' , 'regular_ward', 
@@ -31,7 +31,7 @@ data_covid <- data_covid[,-c(4:6)]
 # variabili
 variabili <- colnames(data_covid[,-1])
 variabili <-matrix(variabili, ncol=3, byrow = FALSE)
-saveRDS(variabili, file = paste0(data_EIN_dir,"variabili.rds"))
+saveRDS(variabili, file = paste0(output_dir,"variabili.rds"))
 
 ### lite
 data_covid_2_20 <- data_covid[,c(109,2:17)]
@@ -70,7 +70,7 @@ data[, 'patient_id' := NULL]
 saveRDS(data, file = paste0(data_EIN_dir,"data_covid_ein_no_IMP.rds"))
 
 set.seed(123)
-data2 <- rfImpute(care ~ ., data, iter=3, ntree=500)
+data2 <- rfImpute(care ~ ., data, iter=100, ntree=500)
 
 saveRDS(data2, file = paste0(data_EIN_dir,"data_covid_ein.rds"))
 

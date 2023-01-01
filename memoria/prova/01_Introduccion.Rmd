@@ -1,0 +1,163 @@
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+
+# Introducción
+
+Se ha desarrollado este estudio con la motivación de abrir una línea de investigación en el Institut Universitari d'Investigació en Atenció Primària (IDIAPJGol) utilizando metodologías de Machine Learning aplicadas a la detección de COVID utilizando la base de datos EHR de SIDIAP. Este estudio quiere predecir la severidad del COVID y detectar sus factores de riesgo. El estudio enfrenta a tres temáticas relativamente actuales: EHR, Machine Learning y COVID. El COVID no afecta a todas las personas de la misma manera, hay diferentes factores que influyen sobre la severidad de la enfermedad. Este estudio prueba a buscar los factores de riesgo que más influyen sobre un pronóstico de mayor gravedad, y quiere comparar modelos predictivos sobre la severidad de la enfermedad entre los diferentes algoritmos de Machine Learning. La potencialidad de este estudio es que permitiría utilizar en futuro modelos similares para las bases de datos más amplias como la base de datos SIDIAP [Anexo 3], o para ensayos clínicos que solitamente tienen un numero de observaciones inferiores. Aun más importante es aplicar estos modelos a otras enfermedades, sin limitarse estrictamente al COVID.
+
+Mirando a largo plazo, hay la posibilidad de utilizar algoritmos el Machine Learning con datos EHR no solamente para la investigación, si no desarrollar herramientas en mano a los sanitarios para mejorar por ejemplo la detección de enfermedades. Una consecuencia positiva para el sistema sanitario, que podría verse beneficiado con la aplicación de ML, que en los últimos años está viviendo un cierto grado de congestión. [XXX]
+
+## SAR-CoV-2
+
+Empezando por la ultima, y probablemente la más impactante por cómo no has afectado desde los principios del año 2020. La OMS (World Heath Organization) ha definido como pandemia el COVID-19, la enfermedad causada por el Coronavirus SARS-CoV-2, el 11 de marzo 2020. En principio no había un numero de caso elevado, que, pero semanas tras semanas el número de casos ha aumentado exponencialmente. La consecuencia de la pandemia ha sido un alto número de contagios, hospitalizaciones y muertes, presionando el sistema sanitario por un aumento de necesidad de prestaciones sanitaria y cama por el aumento de hospitalizaciones y de hospitalizaciones en terapia intensiva. En muchos casos la demanda de recurso sanitario ha sido mayor de la ofertada. En general el COVID ha provocado muchos cambios directa e indirectamente en la sociedad, a partir del confinamiento, cambios en la sociedad en el estilo de vida, y en patrones de consumo.
+
+La mortalidad del COVID desde el principio de la pandemia ha disminuido debido a diferentes factores variantes menos peligrosas, inmunización, medidas restrictivas a la movilidad y a la masiva vacunación que se ha distribuido en plazos relativamente cortos. [XXX] Para la prevención del COVID-19, se han creado en tiempos rápidos vacunas novedosas basadas en ARNm, las dos primeras comercializadas y autorizadas han sido Pfizer-BioNTech (Comirnaty) y la de Moderna (Spikevax). En la Unión Europea y en los países que se han utilizado estas vacunas, se están monitorizando e investigando través estudios clínicos y epidemiológicos sus seguridad y eficacia, haciendo particular atención a los AESI. Este estudio no va a analizar la seguridad de las vacunas y sus efectos negativos en el corto plazo, por ejemplo, debido a varias notificaciones, se han estudiado los casos de miocarditis y pericarditis en personas que han recibido la vacuna, y se ha confirmado una correlación especialmente en las personas que han recibido más de una dosis.
+
+Los que este estudio intentará analizar son los factores de riesgo de las personas que pueden influir negativamente sobre un pronóstico no favorable. En la pandemia se han detectado diferentes factores de riesgo que pueden influir sobre la severidad del COVID, asociada también a una mayor mortalidad, por ejemplo, la edad. XXX Definir biblio y risk factor
+
+## Machine Learning
+
+Se han estudiado previamente los factores de riesgo con diferentes modelos y metodologías, en general las más utilizada en varios estudios es la regresión logística, pero siempre mas en las publicaciones se están utilizando algoritmos de Machine Learning. Los algoritmos de Machine Learning permiten detectar patrones en grandes bases de datos, permitiendo en parte facilitar el estudio predictivo, sobre todo en los casos donde el resultado se conoce y hay un numero grande de variables predictoras. De esta forma, los algoritmos de ML aplicados a bases de datos EHR, asumen una importancia fundamental. [obermeyer2016predicting]
+
+Los algoritmos de Machine Learning en estos últimos años se están aplicando siempre más, y en diferentes áreas. En los últimos años además ha habido un aumento de la generación de grandes cantidades de datos, y como consecuencia el desarrollo de metodologías para la explotación de Big Data. El aumento de la disponibilidad de datos ha crecido junto con técnicas y metodologías para su utilizo.
+
+El Machine Learning se puede considerar como una subcategoría de la Inteligencia Artificial, y está siendo aplicada siempre en más campos con resultados satisfactorios. La utilidad de Machine Learning aplicado a los EHR, es la posibilidad de generar información y permitir una mejor toma de decisión. Existe una extensa bibliografía y de publicaciones que demuestra que el Machine Learning puede ser una herramienta extremadamente útil en el sector sanitario, en el diagnóstico y en la toma de decisiones. Se han publicado diferentes estudios demostrando una mejor performance de las metodologías de Machine Learning en comparación con la más común Logística Regresión. [couronne2018random, beunza2019comparison] [XXX]
+
+Reduciendo el campo al utilizo de Machine Learning en detección de COVID-19, se encuentra una amplia bibliografía desde múltiples enfoques. Desde el tracking de la detección, a la detección través diagnóstico por imagen, o como se quiere aplicar a este estudio, predecir severidad y duración de la enfermedad través datos clínicos de los pacientes. [1,2] XXX]
+
+Para este estudio se utilizan y se comparan diferentes metodologías de Machine Learning y la Regresión Logística Ordinal. En general los algoritmos analizados en este estudio son algoritmos que se han utilizado en estudios anteriormente, y se puede encontrar una extendida bibliografía donde se aplican estos algoritmos: Support Vector Machines (SVM), Random Forest (RF), XGBoost, Artificial Neural Networks (ANN), Naive Bayer (NB) aplicados en diferentes campos y no solamente el sanitario.
+
+## EHR - Electronic Heath Records
+
+Los datos EHR (Electronic Heath Records) son datos sanitarios, se pueden considerar como Big Data o como una subcategoría, y como los Big Data los EHR han tenido un crecimiento exponencial en los últimos quince años. Siendo relativamente nuevos al utilizarlos tienen sus complicaciones. Los datos que se encuentran en un EHR pueden ser de diferentes fuentes, heterogéneos, incompletos, no son de fácil utilizo debido a la naturaleza. Tener datos no es sinónimo de tener información, como el caso de los Big Data, los datos EHR para obtener información tienes que ser procesados no se puede extraer información directamente o es limitada.
+
+En este trabajo se ha utilizado una base de datos XXX, es como segunda opción porque como primera opción se tenían que utilizar la base de datos EHR de SIDIAP. [ANEXO 3]
+
+## Objetivos
+
+En este estudio se abordará las siguientes preguntas:
+
+-   Cuál modelo resultará mejor para predecir la severidad del COVID en las personas
+
+-   Cuáles son las variables más importantes (estadísticamente significativas) que puedan hacernos predecir si una persona podrá sufrir de una forma más grave la enfermedad.
+
+### Los objetivos primarios son:
+
+-   Alcanzar un nivel satisfactorio de predicción de la severidad. Comparando diferentes modelos y algoritmos de Machine Learning
+
+-   Identificar los factores de riesgos potenciales como edad, sexo, enfermedades previas, etc.
+
+### El objetivo secundario:
+
+-   Identificar la población potencialmente a riesgo de padecer la enfermedad de forma grave.
+
+-   Identificar un caso de positividad al COVID, sin test, través de sus analíticas
+
+### Los objetivos específicos:
+
+-   Procesamiento de datos. Data Cleaning y Data Cleansing
+
+-   Análisis exploratorio de los datos. Data Análisis
+
+-   Elección de las variables para el estudio
+
+-   Calcular y comparar modelos de Machine Learning y elegir para el estudio los mejores.
+
+-   Validación de los resultados
+
+## Enfoque
+
+La estrategia para llevar a cabo el trabajo ha tenido que ser bastante flexible sobre todo por el hecho que llevar a cabo esta investigación no depende solamente del autor de este trabajo.
+
+La elección de una base de datos EHR. Tener varias opciones es importante (véase el apartado Análisis de Riesgo). En principio se tenía que utilizar la base de datos SIDIAP, que incluya diferentes pasos:
+
+-   Redactar Protocolo estadístico
+
+-   Redactar Modelo que incluye: Definición del Equipo Investigador. Resumen del estudio, antecedentes, hipótesis, objetivos, metodología, determinaciones, análisis estadístico, resultados esperado, aplicabilidad y relevancia. Financiación. Definición de la Variables.
+
+-   Aceptación Financiación por el centro
+
+-   Aceptación Comité Ética
+
+-   Extracción de Datos.
+
+El siguiente paso el procesamiento previo al análisis de datos:
+
+-   Filtrar los datos
+
+-   Establecer cohortes
+
+-   Data Cleaning y Data Cleansing. En este apartado se incluyen las tareas que sirven para transformar los datos crudos de la base de datos en una base de datos utilizable para el estudio.
+
+-   Elección de las variables necesaria para el estudio. Esto no quiere decir eliminar variables estadísticamente significativas, pero eliminar (o reducir) las variables que poco aportan al estudio, esto permite además tener modelos más agiles a la hora de ser calculados. O eliminación de las variables pocos presentes en la base de datos.
+
+-   Crear un data frame, una tabla para que pueda ser utilizada en los pasos de data análisis y para creación de los modelos, si necesidad se ser ulteriormente procesada. Los pasos finales
+
+-   Creación y comparación de los modelos entre diferentes algoritmos predictivos.
+
+-   Validación de los modelos
+
+-   Interpretación y redacción de los resultados - Publicación script en GitHub
+
+-   Escritura de la memoria.
+
+Las diferentes partes se han desarrollado en paralelo solapándose. Cuando los tiempos empezaban a ser reducido para el utilizo de los datos SIDIAP debido a los diferentes pasos para disponer los datos. Se ha optado por la segunda opción, que desde el principio se ha tenido en cuenta. Una parte del trabajo hecho se ha tenido que volver a adaptar por la segunda opción, mientras otra parte como buena parte del código R se ha podido utilizar con la nueva base de datos. Este problema que se ha encontrado en este estudio mete en evidencia, la importancia de los datos y su valor.
+
+Otras actividades transversales útiles para el enfoque del trabajo y para tener flexibilidad en la planificación:
+
+-   Revisión bibliográfica
+
+-   Aprender el uso de GitHub
+
+-   Publicación con R Markdown
+
+-   Aprender el uso de algunos paquetes de R
+
+## Planificación del trabajo
+
+Si hay que darle una línea de tiempo, hay que tener en cuenta que se han tenido variaciones a lo largo de estos meses, y no se ha tenido un desarrollo lineal como se podría representar través de un diagrama de Gantt. La modificación más relevante ha sido debido a la elección de la base de datos. Resumiendo, las tareas que se han realizado en este trabajo:
+
+-   Revisión bibliográfica. Es el punto de partida del estudio, la búsqueda bibliográfica para definir el trabajo, el desarrollo y el objetivo del trabajo. Se ha buscado sobre todo bibliografía en el campo clínico, pero se han incluido otros trabajos que se han considerado relevantes al fin del desarrollo de este trabajo.
+
+-   Base de datos, se ha explicado anteriormente, incluye la búsqueda de una base de datos y la preparación para que se pueda utilizar para el estudio.
+
+-   Desarrollo Código R, en el cual se incluye análisis de datos y creación de los modelos de Machine Learning - Redacción de la memoria. En R, través R Markdown y Pandoc.
+
+-   Preparación del trabajo, elaboración de un video y slides
+
+-   Defensa del trabajo
+
+El plan de trabajo se puede resumir en un diagrama de Gantt:
+
+![](Untitled%20Project%205.png)
+
+### Análisis de riesgo
+
+La valoración de los factores de riesgos ha sido una parte importante de este trabajo, el adaptarse a las circunstancias y los impedimentos ha sido una tarea difícil que comporta un cierto riesgo. El mayor riesgo que se puede encontrar en un estudio es el no encontrar datos, o tener que cambiar los datos por alguna razón. La estrategia por esta razón se ha enfocado en tres opciones excluyentes por la elección de un EHR:
+
+-   El uso de la base de datos SIDIAP, en principio se tenía que hacer el estudio sobre una base de datos extremadamente amplia. Utilizar una base de datos crudos en el cual el procesamiento previo de los datos es una parte importante del trabajo. Se han encontrado varios problemas para respectar los tiempos burocráticos y de desarrollo (elección datos, aprobación financiamiento, aprobación comité ético, extracción de datos), así que se ha optado, por una segunda opción, dejando de lado esta primera opción para un estudio en los próximos meses. Otro riesgo concreto es que la Comisión ética no apruebe la investigación, o que no se apueste, no se financie una investigación con estos fines.
+
+-   La segunda opción (la que se ha elegido para este estudio) es una base de datos abiertos, utilizada previamente en varios estudios y competiciones.
+
+-   La tercera opción crear una base de datos random. En este caso no tendría un fin sanitario, valorar los factores de riesgo, esta opción tendría solamente un fin de comparación de modelos.
+
+Otro factor de riesgo relativamente menos importante son los recursos computacionales, sobre todo en el caso de utilizar una base de datos grande como era la primera opción, y teniendo en cuenta que los algoritmos de Machine Learning requieren en general altos recursos computacionales, la idea era reducir la base de datos con criterios más estrictos, por ejemplo:
+
+-   Restringir la investigación a determinados grupos de la población, mayores de sesenta años.
+
+-   En el caso de estratificar por edad, crear un modelo separado por cada rango de edad
+
+-   Eliminar los menores de dieciocho años.
+
+-   Aumentar el número de variables en el modelo, sin imputar los datos faltantes, de esta forma se debería eliminar la persona del estudio por no tener datos completos.
+
+Además, se ha tenido que llevar tareas en paralelo para mantener una cierta flexibilidad para llevar a cabo el trabajo, que puedes ser algunos considerado como hitos:
+
+-   El desarrollo de lo script de R se ha desarrollado parcialmente en paralelo, adaptándose continuamente a la bibliografía encontrada, y a las bases de datos disponibles.
+
+-   El mismo objetivo se ha ido modificando, en el principio además de la severidad, se quería estimar la duración de la positividad, parte del proceso descartada debido a la falta de disponibilidad den tiempos breves de la base de datos SIDIAP.
+
+En los riesgos se han considerado solo parcialmente circunstancias excepcionales, por su naturaleza las causas excepcionales resultan ser difíciles de prever. Con esto no significa que puedan pasar, pero no son causas de dependen directa o indirectamente de la conducta del autor.
