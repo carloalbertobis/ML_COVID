@@ -161,3 +161,5 @@ Además, se ha tenido que llevar tareas en paralelo para mantener una cierta fle
 -   El mismo objetivo se ha ido modificando, en el principio además de la severidad, se quería estimar la duración de la positividad, parte del proceso descartada debido a la falta de disponibilidad den tiempos breves de la base de datos SIDIAP.
 
 En los riesgos se han considerado solo parcialmente circunstancias excepcionales, por su naturaleza las causas excepcionales resultan ser difíciles de prever. Con esto no significa que puedan pasar, pero no son causas de dependen directa o indirectamente de la conducta del autor.
+
+\pagebreak

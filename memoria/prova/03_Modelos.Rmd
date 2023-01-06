@@ -1,0 +1,233 @@
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+
+
+# Modelos
+
+Los Modelos de ML son en algoritmos que reducen la supervisión humana, se diferencian entre ellos en dos grupos, los de aprendizaje supervisado y los que no lo necesitan. Los de aprendizaje supervisado son los que utilizaremos en este estudio, y se diferencian por tener una variable respuesta. Los diferentes algoritmos se pueden agrupar por su función en:
+
+-	Métodos de Clasificación: XGBoost, SVM, Random Forest
+
+-	Métodos de Regresión: Redes Neuronales, Regresiones, K-NN, Elastic Net
+
+Muchos algoritmos cumplen la doble función y se pueden adaptar con buenos resultados a los dos métodos.
+
+En este estudio se han aplicado a la base de datos diferentes algoritmos de ML incluidas el paquete `caret` (acrónimo de Classification And Regression Training). El paquete caret() incluye diferentes funciones que resultan ser indispensables cuando se quiere hacer un estudio de ML:
+
+-	createDataPartition(): para dividir la base de datos en las dos partes de train y test.
+ 
+-	featurePlot(): para el análisis descriptivo
+
+-	preProcess(): para el preprocesado de los datos, por ejemplo escalar los datos
+
+-	knnImpute, bagImpute etc. para la imputación de los datos
+
+-	train(): necesario para entrenar el modelo
+
+-	predict(): para obtener predicciones o estimaciones
+
+-	confusionMatrix(): para la valoración de los modelos
+
+-	varImp(): para valorar la importancia de las variables predictoras
+
+La función `caret` incluye diferentes funciones y algoritmos de ML Es una herramienta flexible y suficientemente completa para este estudio. [Kuhn]
+
+Los diferentes modelos utilizados prevalentemente en este estudio se han elegido sobre todo través criterios bibliográficos, los algoritmos elegidos se han aplicado en estudios similares.
+
+### Regresión Logística Ordinal - polr()
+
+Los modelos lineales generalizados en los cuales se incluye Poisson, Bernoulli y la Binomial se caracterizan a diferencia de las regresiones lineales más comunes por no tener la variable dependiente no tenga una distribución normal. 
+
+La regresión logística se utiliza cuando la variable dependiente es una variable categórica binomial. Es una técnica muy común y utilizada en diferentes campos de estudio, no necesita tantos recursos computacionales como los algoritmos de ML. Como las regresiones lineales hay un control sobre las variables explicativas.
+
+La regresión logística (binomial) es conceptualmente similar a la regresión logística ordinal, la única diferencia que la variable dependiente categórica en la regresión logística ordinal tiene más de los dos niveles. 
+
+Las desventajas en general de los modelos lineales generalizados tienen que cumplir determinadas hipótesis:
+
+-	Homocedasticidad, la varianza del error constante
+
+-	Normalidad de las variables.
+
+-	Los errores sean independientes
+
+-	Las variables independientes no sean correlacionadas (multicolinealidad). En el caso que las variables sean correlacionadas las estimaciones se verán afectadas y serán poco eficientes. Así que será también difícil determinar si las variables independientes son estadísticamente significativas o no.
+
+Además, estos modelos tienden a linealizar, y en determinados casos están limitados para describir casos no lineales. La falta de un modelo linear, invalida o reduce las estimaciones.
+
+Como explicado anteriormente, las variables en este modelo pueden causar problemas en la estimación, y cuando hay un número elevado de variables independientes, es útil reducir el número de variables (que esta correlacionado con el Principio de Parsimonia). Hay diferentes metodologías para reducir el número de variables, en este estudio se ha utilizado una selección por pasos stepwise(). 
+
+Alternativamente se puede reducir la dimensionalidad manualmente basándose por ejemplo sobre criterios de `variance inflacion factor` que se utiliza para reducir la multicolinealidad, o eliminando la variable no significativa. Otra manera de reducir la dimensionalidad es utilizar por ejemplo PCA (Principal Component Analisys), es una metodología útil cuando hay una grande dimensionalidad y cuando el modelo sufre multicolinealidad. 
+
+### Random Forest – rf()
+
+Random Forest es un algoritmo de clasificación y predicción. Su algoritmo genera diferentes arboles de decisiones parcialmente no correlacionados entre ellos. Cada árbol de decisión es una clasificación, y el modelo será el que tiene un mayor número de votos. De consecuencia es el gran número de árboles de decisión que produce este algoritmo que permite encontrar un patrón de predicción o clasificación. [breiman1996bagging]
+
+Los aspectos positivos de este algoritmo que no necesita suposiciones como por ejemplo las regresiones lineares, se pueden crear modelos robustos con mínima preparación de los datos y se puede utilizar con un muy grande número de variables. Su sencillez, y el hecho de que pueda utilizarse eficazmente en diferentes campos, lo convierten en uno de los algoritmos más populares.
+
+Los aspectos negativos, que por su naturaleza es más un algoritmo de clasificación que de predicción. Y como varios algoritmos de ML es un modelo `black-box`.
+
+### Support Vector Machine
+
+Support Vector Machine es un algoritmo de clasificación, se utiliza también por las regresiones. Se creó para la clasificación binaria con una esencia lineal (por lo menos en principio) puede ser substituido con diferentes Kernel que depende de las variables predictoras. Este cambio fundamental ha permitido obtener de este algoritmo una buena flexibilidad cambiando entre diferentes Kernels (lineal, polinómico, radial, hiperbólico) y de adaptarse bien a fronteras no lineales.
+
+Los aspectos negativos es que resulta ser un algoritmo lento en entrenar. En general se debe escalar los datos para evitar que las variables con valores más grandes tengan más peso de las otras, o en el caso de variables categóricas.
+
+También este algoritmo como el anterior, es que los modelos son de difícil interpretación debido a que es un algoritmo de ML `black-box`
+
+### Naïve Bayes – nb()
+
+Naïve Bayes es un algoritmo basado en el Teorema de Bayes. Se define Naïve porque se consideran las variables predictoras independientes entre ellas, y que contribuyen independientemente a la probabilidad de obtener un determinado valor de la variable dependiente. Esto permite utilizar un alto número de variables.
+
+### K-Nearest Neighbour – knn()
+
+K-Nearest Neighbour (k-vecinos más cercanos) es un algoritmo de clasificación, XXXXXX
+
+### Artificial Neural networks – ann()
+
+Las redes neuronales artificiales son un algoritmo de ML, como los otros algoritmos que se han utilizado en este estudio es una metodología de aprendizaje supervisado. Las redes neuronales crean layer crean capas entremedias, entre las capas de entrada (input) y de salida (output), el modelo más sencillo crea solamente un layer entremedio (hidden layer).
+
+Los aspectos positivos son que los modelos tienden a ser robustos. Resultan ser útiles cuando hay estructuras complejas de difícil interpretación o como en nuestro estudio una alta dimensionalidad. Son modelos que necesitan que los datos sen preprocesados (escalados y centrados).
+
+Los aspectos negativos, en general este algoritmo necesita más tiempo de otros algoritmos para el entreno, además para tener un buen nivel de entrenamiento se necesita un numero de observaciones (n) más grande.  Tienden a ser de difícil interpretación si se crean diferentes capas intermedias.
+
+### Elastic Net - glmnet()
+
+Útil cuando se en modelo tiene una alta dimensionalidad, y hay riesgo que las variables independientes tengan correlación. Como explicado anteriormente, si las variables esta correlacionadas hay problemas de multicolinealidad. Como con Lasso o Ridge Regression, en este caso el modelo tiende a reducir el peso de algunas variables, forzándola a cero en el primer caso, y reduciendo su peso en el segundo.
+
+En general es importante estandardizar las variables independientes, las variables categóricas modificarlas en numéricas y configurar los parámetros. 
+
+### Extreme Gradient Boosting (XGBoost) – xgbTree()
+
+XGBoost es uno de los algoritmos de ML más comunes, es extremamente efectivo, su eficacia está reconocida en diferentes competiciones de Machine Learning, por ejemplo, en Kaggle. [chen2016xgboost] XXXX
+
+Conceptualmente similar a Random Forest, genera múltiples modelos para generar un modelo de predicción optimo. La metodología boosting, es una metodología iterativa que se ajusta para reducir los errores (RMSE o AUC), hasta que no se encuentra el mejor modelo posible. [jerome H friedman] XXXX. Como el algoritmo Random Forest, resulta ser muy útil cuando se utilizan datos heterogéneos.
+
+
+## Entrenamiento y Validación del Modelo
+
+Cuando el número de observaciones no es muy grande cabe la opción de entrenar el modelo con todas las observaciones y evaluarlo con Cross-Fold Validation o Bootstrap.
+
+En el caso de este estudio, teniendo un numero de n no elevado pero tampoco pequeño, se ha utilizado la función `createDataPartition()` que se incluye en el paquete `caret()`, esta función busca dividir el dataset en dos parte con una distribución similar de las variables:
+
+-	Un grupo de entrenamiento más grande, para entrenar y construir el modelo
+
+-	Un grupo de test, para validar el modelo creado en el step anterior.
+
+Solitamente los dos grupos son respectivamente un 70-80% del dataset original, y un 20-30%. De esta manera, las personas incluidas en este estudio se han dividido en dos grupos, el grupo de training alrededor de un 70%, y un grupo de validación de 30%, que es necesario para poder validar la performance de los diferentes algoritmos.
+
+Para que sea posible la comparación y la valoración entre los modelos depende de la configuración de los parámetros y de los resultados de la validación cruzada. El fin es obtener los mejores resultados posibles, alta precisión y un numero bajo de errores.
+
+## Parámetros
+
+Para poder calcular los parámetros, se ha utilizado la metodología de re-sample K-fold Cross Validation. El paquete caret() incluye la función que permite calcular los parámetros optimizados para obtener los mejores resultados: `bestTune`.
+
+Una vez definidos los parámetros, el segundo paso es entrenar el modelo con los parámetros optimizados. Los parámetros que se han configurado para cada modelo son:
+
+-	Random Forest: mtry; es el número de variables, que van a ser las candidatas de cada ramificación.
+
+-	Support Vector Machine: C (coste de violación de las restricciones) and sigma; 
+
+-	Naïve Bayes: fL and adjust; 
+
+-	K-Nearest Neighbour: K; 
+
+-	Artificial Neural Networks: size and decay; 
+
+-	Elastic Net: alpha and lambda
+
+-	XGBoost XXXX
+
+## K-fold Cross Validation Vs Bootstrapping
+
+Las dos metodologías no son útiles solamente en validar los modelos, si no van a ser útiles en la fase de entrenamiento. Se basan en repetir las fases de entrenamiento y test varias veces en un subconjunto creados aleatoriamente desde la base de datos que se está estudiando. Por regla general cuando el tamaño muestral es grande como en este estudio es aconsejable K-Fold-Cross-Validation repetido por lo menos 10 veces (hasta 100 veces), por una muestra pequeña es posible reducir el número de repeticiones. Mientras el boostrapping necesitando menos recursos computacionales, es aconsejable cuando se quiere comparar modelos sin necesitar estimaciones precisas. Aumentando el número de repeticiones se reduce la varianza, puede resultar útil aumentar el número de repeticiones si se quiere estimaciones más precisas.
+
+Existen otras metodologías que se uso es extendido como validación simple y LOOCV etc. Que en este estudio no se analizaran por ser caracterizados generalmente por una menor precisión en comparación a K-Fold-Kross-Validation o Bootstrapping.
+
+Bootstrapping. En caret() de default se utiliza boostrapping como metodología de re-sample. A diferencia de K-Fold-Cross-Validation, el boostrapping utiliza el `resampling with replacement` por un numero B de veces, esto significa que algunas observaciones pueden aparecen en más muestras y otras observaciones nunca se utilizaran (OOB out of bag).
+
+K-Fold-Cross-Validation es una metodología de validación útil para obtener mejor performance en la predicción, desde los datos que introducimos, esta metodología crea un grupo de entrenamiento y uno de validación. El grupo de entrenamiento se divide en diferentes subconjuntos (k), través de los cuales se entrena el modelo de forma iterativa (k veces). Cada subconjunto es diferente en cada iteracción y se utiliza como conjunto prueba, el resto de los datos se utiliza como entrenamiento. El cálculo final será la del promedio de los resultados de todas las iteracciones. El promedio que se encuentra de K-fold Cross Validation, siendo calculado de forma iterativa nos da una idea más precisa del modelo de clasificación utilizado. Utilizando K-fold Cross Validation para los datos en entrada es posible también configurar los parámetros de los algoritmos de manera más optima. [kuhn2013applied] XXXx
+
+
+## Evaluacion del Modelo
+
+Para poder valorar los diferentes modelos, se utiliza la función predict() el grupo `test`, y se verifican las predicciones con la función `confusionmatrix()`, que permite separar los datos correctamente clasificados con los con datos no correctamente clasificados en las cuatro categorías:
+
+-	TP: True Positive (Verdadero Positivo)
+
+-	TN: True Negative (Verdadero Negativo)
+
+-	FP: False Positive (Falso Positivo)
+
+-	FN: False Negative (Falso Negativo)
+
+En una tabla de esta forma:
+
+| Real / Predicción   | ** Negativo **    | ** Positivo **  | 
+| -----------|:------------- |:------------------------------------ |
+|**Negativo** |* Verdadero Negativo (TN) |* Falso Positivo (FP) |
+|**Positivo**  |* Falso Negativo (FN) |* Verdadero Positivo (TP) |
+
+A partir de esta tabla se pueden calcular las performance de cada algoritmo de ML se ha calculado través diferentes métricas, en parte relacionadas entre ellas:
+
+Accuracy, la precisión, la porcentual de predicción acertada.
+
+$$
+ACC = \frac{TP + TN}{TP+TN+FP+FN} = \frac{TP + TN}{P + N}
+$$
+Kappa, los aciertos en una clasificación al azar
+
+$$
+XXXXXX
+$$
+
+Sensitivity (True Positive Rate), la sensibilidad, los resultados positivos correctamente clasificados.
+
+$$
+TPR = \frac{TP}{TP+FN}
+$$
+Specificity (True Negative Rate), la especificidad, los resultados negativos correctamente clasificados.
+
+$$
+TNR = \frac{TN}{TN+FP}
+$$
+
+F1 score:
+
+$$
+F1 = \frac{2TP}{2TP + FP + FN}
+$$
+
+Balanced Accuracy (BA), es la media entre Sensibilidad y especificidad:
+
+$$
+BA = \frac{TPR + TNR}{2}
+$$
+
+Curva ROC, es la representación grafica que pone en relación sensibilidad y especificidad, de esta forma la curva ROC permite de valorar los modelos en base al área que está bajo su curva (AUC – Area Under Curve)). Mayor será el área bajo la curva mejor se considera el modelo.
+
+## Interpretación del modelo
+
+El objetivo de un modelo de ML es alcanzar una alta predicción y las métricas del apartado anterior nos permite valorar el modelo. Pero tenemos una reducida interpretabilidad del modelo. La tarea se hace aún más difícil cuando los modelos tienen un alto número de variables. Generalmente podemos considerar que al aumentar la complejidad del modelo tiende a disminuir su interpretabilidad.
+
+El estudio del efecto de las variables (explicativas), si son estadísticamente significativas, medir de alguna forma la importancia de una determinada variable en un modelo resulta ser algo más difícil en comparación a las comunes Regresiones. Hay modelos de ML que tiene una black-box, o la misma multicolinealidad puede dificultar la valoración de cada variable.
+
+Valorar la importancia de las variables en cada modelo resulta ser una parte fundamental de este estudio, para poder detectar cuál de las variables analizadas afectan mayoritariamente a la severidad del Covid. [fishcer 2019] XXXXX
+
+Los modelos de ML utilizado en este estudio son métodos de aprendizaje supervisado, y permiten valorar la importancia de las variables. Esta funcion varImp() esta implementada en el paquete caret().  
+
+
+\pagebreak
+
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,22 @@
 
 \pagebreak
 
+\@caret
+
+ccccccccccccccccccccccccc
+
+\pagebreak
+
+# titolo 1
+
+## titolo2
+
+come diceva [@obermeyer2016predicting]
+
+come diceva @obermeyer2016predicting
+
+\pagebreak
+
 # Anexo - Variables
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}

@@ -1,0 +1,27 @@
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+\pagebreak
+
+# Anexo - Sensivity / Specifity Imputed
+
+```{r include=FALSE}
+table_sens_spec_imp <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_sens_spec_imp.rds")
+table_sens_spec <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_sens_spec.rds")
+```
+
+```{r echo=FALSE}
+kable(table_sens_spec_imp)
+```
+
+
+\pagebreak
+
+
+
+
+
+
+

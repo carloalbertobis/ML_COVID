@@ -1,0 +1,150 @@
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+
+```{r include=FALSE}
+library(arsenal)
+library(knitr)
+
+table_sev_vs_age <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_sev_vs_age.rds")
+table_sev_vs_age_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_sev_vs_age_lite.rds")
+
+table_covid_vs_age <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_covid_vs_age.rds")
+table_covid_vs_age_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_covid_vs_age_lite.rds")
+
+table_ein <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_ein.rds")
+table_ein_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_ein_lite.rds")
+
+table_auc_acc_kappa <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_auc_acc_kappa.rds")
+table_auc_acc_kappa_imp <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_auc_acc_kappa_imp.rds")
+
+var_imp_imp <- readRDS("D:/GitHub/ML_COVID/output_einstein/var_imp_imp.rds")
+var_imp_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/var_imp_lite.rds")
+
+var_imp_svm_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/var_imp_svm_lite.rds")
+var_imp_svm_imp <- readRDS("D:/GitHub/ML_COVID/output_einstein/var_imp_svm_imp.rds")
+
+table_auc_acc_kappa_covid <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_auc_acc_kappa_covid.rds")
+table_auc_acc_kappa_imp_covid <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_auc_acc_kappa_imp_covid.rds")
+
+table_sens_spec_imp2 <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_sens_spec_imp_covid.rds")
+table_sens_spec2 <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_sens_spec_covid.rds")
+
+```
+
+# Resultados
+
+## Comparación Modelos
+
+Como explicado en los capítulos anteriores, la precisión de predicción y el error de predicción, nos lo proporciona la matrix de confusión, en la cual diferencia los casos entre Verdaderos, Falsos, Falsos Positivos y Falsos Negativos.
+
+En esta primera tabla se comparan los diferentes algoritmos que se han descrito anteriormente. Estos primeros resultados son con la base de datos en la cual no se han imputado valores a los missing values:
+
+```{r echo=FALSE}
+xxx <- as.data.frame(table_auc_acc_kappa)
+xxx <- xxx[1:7,2:9]
+row.names(xxx) <- table_auc_acc_kappa$Test[1:7]
+kable(xxx)
+```
+
+En la siguiente tabla se muestran los resultados que se han calculado con la base de datos con los datos imputados.
+
+```{r echo=FALSE}
+xxx <- as.data.frame(table_auc_acc_kappa_imp)
+xxx <- xxx[1:7,2:9]
+row.names(xxx) <- table_auc_acc_kappa$Test[1:7]
+kable(xxx)
+```
+
+Después comparar varios modelos de Machine Learning, podemos concluir que los diferentes modelos son en parte similares. En general todos los modelos tienen buenos resultados donde más es mejor: Todos los modelos tienen un valor medio alto de AUC.
+
+Se puede conseguir que los modelos tienen una buena capacidad predictora. Entre los resultados de las dos bases de datos hay ligeras diferencias, con la con la base de datos imputados, se puede alcanzar niveles mas altos de AUC, un mayor numero de observaciones permite un mejor entrenamiento. Hay que considerar que imputar datos través de algún algoritmo hace que el dataset sea de más fácil previsión.
+
+En la primera tabla los únicos tres algoritmos que tienen un AUC > 0.7 son:
+
+-	Random Forest
+
+-	Support Vector Machine
+
+-	XGBoost
+
+El modelo que preforma mejor en la primera tabla es Random Forest. En la segunda tabla todos los algoritmos tienen valores de AUC > 0.7 excepto KNN. El modelo que performa mejor es XGBoost. 
+
+En el `Anexo Sensivity / Specifity` y `Anexo Sensivity / Specifity Imputed` se pueden encontrar los valore se sensivity y specificity de los modelos analizados
+
+En este estudio no se ha considerado en el análisis el tiempo computacional de los diferentes algoritmos, hace falta destacar que el algoritmo que ha tardado mas con diferencia ha sido XGBoost, tardando desde las 5 a las 20 veces más que los otros. No todos los algoritmos se calculan en el mismo tiempo, y en el caso de entrenar un modelo con un dataset más grande hay el riesgo que los tiempo de entrenamiento sean exponencialmente mas grandes. Y no necesariamente es solo una cuestión del tiempo, en determinados casos los recursos hardware no sean suficientes.
+
+## Variables
+
+No se ha utilizado PCA (Principal Componen Analysis) que una herramienta utilizada para reducir la dimensionalidad, para tener mayor control sobre las variables, y poder definir cual variables son las más importantes en el análisis. Que es un punto importante de este estudio.
+
+La importancia de las variables esta descrita en la tabla aquí abajo por cada modelo. Nos limitamos a los modelos mas performantes en los dos dataset (Random Forest, SVM, XGBoost). Además se ha añadido a la tabla OLR, por la razón que las regresiones son probablemente la metodología mas común. Los resultados deberian tomarse con cuidado debido a las varias limitaciones implicadas en el estudio con la funcion varImp(). 
+
+En esta dos primeras tablas analizamos el dataset reducido. 
+
+```{r echo=FALSE}
+kable(var_imp_lite[1:6,])
+```
+
+Hay variables significativas presentes en todos los modelos. En general hay una respuesta de anticuerpos en todos los modelos. 
+
+SVM divide el resultado por cada categoría de la variable dependiente. Se puede definir las variables mas importantes, pero depende de la categoría de la variable dependiente, de esta forma es mas difícil determinar cuales son las variables más importante.
+
+```{r echo=FALSE}
+kable(var_imp_svm_lite)
+```
+
+En esta dos tablas analizamos el dataset con datos imputados. 
+
+```{r echo=FALSE}
+kable(var_imp_imp[1:7,])
+```
+
+En este caso se han eliminado menos variables, destaca la presencia de otras variables esto no permite una comparación directa entre los dos dataset. Analizando, pero estas últimas dos tablas, excluido SVM, los otros algoritmos no tienen una diferencia tan marcada sobre las variables estadísticamente significativas.
+
+```{r echo=FALSE}
+kable(var_imp_svm_imp)
+```
+
+## Detectar COVID 
+
+En este apartado se analiza la positividad COVI en relación con los valores clínicos. La variable dependiente en este caso es `cov_results`. Se ha elegido Random Forest como algoritmo para este apartado, por los niveles de AUC buenos con los dos datasets.
+
+De la misma forma de lo que se ha analzado en los apartados anteriores, se podría diagnosticar una positividad de COVID en un caso dudoso basándose en los análisis clínicos. Pero no sería una manera eficiente para detectar el COVID por varias razones, los análisis clínicos implican una extracción de tejido más invasivo, el coste del análisis, y el tiempo. Además, se detectaria un probable caso COVID, pero podría ser cualquier otro tipo de infección.
+
+```{r echo=FALSE}
+xxx <- as.data.frame(table_auc_acc_kappa_covid)
+yyy <- as.data.frame(table_auc_acc_kappa_imp_covid)
+yyy <- yyy[1:7,]
+xxx <- xxx[1:7,]
+xxx$RF <- xxx$`RF COVID Results` 
+xxx$`RF COVID Results Imp` <- yyy$`RF COVID Results` 
+kable(xxx[,c(1:2, 4)], row.names = FALSE)
+```
+
+En la misma tabla analizamos las dos modelos. En base a los resultados obtenidos, hay una excelente capacidad de predicción del COVID en base a los análisis clínicos en los dataset. Como explicado anteriormente esto no significa que sea eficiente detectar el COVID con los análisis clínicos. Un AUC alto significa que has correlación entre análisis clínicos y COVID. En un periodo de COVID, los valores pueden ser reconducidos a la infección de virus, en otro periodos lejos de la pandemia, mismo resultados podría ser relacionado con otras enfermedades, y no necesariamente el COVID.
+
+En el `Anexo Sensivity / Specifity COVID` y `Anexo Sensivity / Specifity Imputed` se pueden encontrar los valore se sensivity y specificity de los modelos analizados, respectivamente reducido e imputado.
+
+## Limitaciones
+
+La primera limitación, es que en todos los modelos tiene un número reducido de observaciones. La diferencia entre los datos EHR y los datos de ensayos clínicos es que los datos de los ensayos clínicos sueles ser más específicos y completos. En general, pero tienen un número limitado de observaciones. 
+
+Se analiza la gravedad de COVID-19 pero el modelo tiene sus limitaciones. La primera es que no diferencia las características de las variantes de COVID-19, y la gravedad por variante. Algunas variantes son más relacionadas a la gravedad de la enfermedad, resulta imposible, pero definir la variante de cada caso. Analizar las variantes serias complicado, la forma más sencilla seria estratificar por los periodos y determinar la variante más común en cada periodo.
+
+Otra limitación del estudio es que los análisis por el grupo de positivos se han hecho cuando las personas ya eran positivas, y probablemente unos valores se han modificado debido a la positividad. Esto significa que los análisis no describen la condición previa a la enfermedad, si no la respuesta en caso de enfermedad, de esta forma se puede predecir en parte si la persona en base a la respuesta va a tener o menos una cierta gravedad.
+
+\pagebreak
+
+# Conclusiones
+
+Se ha demostrado en este trabajo que es posible predecir la severidad de COVID basando en los resultados analíticos. Los modelos entrenados nos permiten predecir la severidad de las personas COVID negativas en caso de ser contagiadas. 
+En este caso se han aplicado los modelos de Machine Learning al COVID, la potencialidad de estos modelos es que configurados en manera eficiente se pueden aplicar a diferentes enfermedades.
+
+El paso sucesivo seria aplicar los modelos mejores de este estudio a la base de datos SIDIAP, para tener un estudio con un numero de observaciones alto. El step siguiente seria poder estudiar otras enfermedades con metodologías similares.
+
+Sobre la posibilidad de aplicar algoritmos de Machine Learning, no solo para estudios o en investigaciones, si no también en el sector sanitario, es cuestión de tiempo. Como en muchos otros campos que ya sesta utilizando intensamente, también en el sector sanitario se debería aceptar los algoritmos de Machine Learning como herramienta fundamental para las diagnosis, para facilitar el trabajo de los mismos sanitarios, seria en parte equivocado ver estas herramientas como algo que va en contra del personal sanitario, que continuara siempre en tener un papel fundamental en la sanidad pública y privada.
+
+

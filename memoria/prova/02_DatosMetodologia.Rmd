@@ -1,0 +1,56 @@
+
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+
+# Metodologia
+
+La componente principal de este estudio es identificar los factores de riesgo para la población, y crear y comparar modelos de Machine Learning con una buena capacidad de predicción.
+
+## Data
+
+El dataset que se ha utilizado para este estudio, incluye datos de pacientes anonimizados del Hospital Israelita Albert Einstein, en São Paulo, en Brasil. El dataset es formado por un total de `5644` pacientes. A los pacientes en el dataset junto con e un test para detectar el COVID, se le hicieron una analítica de sangre. De esta forma además de conocer la edad, en este estudio se consideran otras variables que pueden ayudar en la construcción el modelo. El total de las variables presente en el dataset está en el `Annex 1 – Variables`.
+
+### Variable Dependiente
+
+La variable dependiente viene definida con la severidad de la enfermedad a la hora de contraerla, se define en una escala. Y viene definida por niveles de severidad:
+
+-	Nivel 1.
+
+-	Nivel 2. Hospitalización relacionada a COVID-19
+
+-	Nivel 3. Hospitalización severidad media relacionada a COVID-19
+
+-	Nivel 4. Hospitalización en UCI relacionada a COVID-19
+
+### Variables Predictoras
+
+Con el aumentar el número de las variables predictoras (o explicativas) se puede reducir los errores, mejorar el modelo y de consecuencia la capacidad de predicción. Al mismo tiempo, añadiendo variables se pueden encontrar diferentes problemas que pueden perjudicarlos creando modelos poco robustos y eficientes. Por ejemplo:
+
+-	Efecto frontero
+
+-	Multicolinealidad
+
+-	Heteroscedasticidad
+
+Otra cosa es que cuando se tiende a aumentar la complejidad del modelo se reduce su interpretabilidad, este estudio no se enfoca solamente en la capacidad predictiva, si no también en su interpretabilidad, estudiar la importancia de los predictores.
+
+Es importante encontrar un compromiso entre su capacidad de predicción y su grado de complejidad, la mejor opción es encontrar un modelo más simple posible sin perder capacidad de predicción. 
+
+Además, los datos EHR no son siempre datos completos, y son heterogéneos. Esto significa que no todas las personas incluidas en el estudio tengan la misma disponibilidad de variables. Los datos presentes en un EHR son datos y eventos recogidos en base a las circunstancias de las personas y en base a sus necesidades. Esto significa que no todas las personas tienen las mismas variables, y en este estudio la idea es no imputar los datos faltantes, se tendrá que elegir las variables que tengan un número suficiente de personas en la base de datos. Esto comporta llegar un compromiso entre número de pacientes y variables. De otra forma al elegir un número elevado de variables, se reduciría notablemente el número de personas, a las solas personas con estas variables disponibles.
+
+Las variables predictoras incluidas en los modelos son las mismas en todos los modelos, y están descrita en el apartado de Análisis Estadística. En el primer modelo que se analiza (Regresión Logística Ordinal) se han reducido las variables con la función stepwise().
+
+## Datos faltantes
+
+En la base de datos EHR hay valores faltantes, los datos de los pacientes no son los datos de un ensayo clínico, que tienden a ser más completos. Es imaginable que, en los ensayos clínicos, hay menos datos faltantes, por dos razones hay menos participantes, y los análisis tienden a ser más específicas.
+
+Los eventos grabados en un EHR dependen de la dinámica, depende de los profesionales sanitarios que deciden hacer en un determinado momento, esto crea una cierta diversidad en base a la urgencia de tratamiento, de enfoque y de análisis, también en el hipotético caso que dos pacientes acudan al hospital por la misma razón. Además, en parte depende de la historia clínica del paciente y de sus hábitos. En la atención sanitaria hay cierto protocolo que se siguen, pero hay un cierto margen de libertad y esto hace que entre dos sujetos que acuden a una estructura sanitaria, tengan prestaciones ligeramente diferentes. Esto en un factor limitante de los datos EHR.
+
+Existen diferentes tipologías de maneras para solucionar el problema de los datos faltantes, imputar valores donde no están presentes otra forma es eliminar las variables o las observaciones con datos faltantes. Existe también una opción que esta en el medio camino, eliminar los datos faltantes con determinado umbral, y los datos no completos qué, pero están debajo de este umbral imputar con una de las diferentes metodologías (también de ML) utilizada para este fin.
+
+Para este estudio se ha optado para seguir la línea que se está utilizando en general con las investigaciones que estamos teniendo focalizadas a los AESI de la vacuna COVID, donde no se imputan valores a los datos faltantes. Este caso es viable aun mas cuando tenemos una grande base de datos, y podemos permitirnos de eliminar observaciones no completas, como en el caso de la base de datos SIDIAP. También se ha creado una base de datos imputando los datos faltante través un algoritmo de ML basado en Random Forest. 
+
+\pagebreak

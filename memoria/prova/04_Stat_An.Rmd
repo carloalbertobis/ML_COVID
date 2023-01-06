@@ -1,0 +1,122 @@
+---
+output: 
+  pdf_document:
+   keep_tex: yes
+---
+
+```{r include=FALSE}
+library(arsenal)
+library(knitr)
+
+data_covid_ein <- readRDS("D:/GitHub/ML_COVID/data_einstein/data_covid_ein.rds")
+data_covid_ein_lite <- readRDS("D:/GitHub/ML_COVID/data_einstein/data_covid_ein_lite.rds")
+
+table_sev_vs_age <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_sev_vs_age.rds")
+table_sev_vs_age_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_sev_vs_age_lite.rds")
+
+table_covid_vs_age <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_covid_vs_age.rds")
+table_covid_vs_age_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_covid_vs_age_lite.rds")
+
+table_ein <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_ein.rds")
+table_ein_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/table_ein_lite.rds")
+
+plot_intro_ein <- readRDS("D:/GitHub/ML_COVID/output_einstein/plot_intro_ein.rds")
+plot_intro_ein_no_IMP <- readRDS("D:/GitHub/ML_COVID/output_einstein/plot_ein_no_IMP.rds")
+plot_intro_ein_lite <- readRDS("D:/GitHub/ML_COVID/output_einstein/plot_intro_ein_lite.rds")
+```
+
+# Analisis Preparatorio, Exploratorio y Estadistico
+
+La preparacion del dataset se puede encontrar en GitHub al enlace
+
+<https://github.com/carloalbertobis/ML_COVID> , hay diferente carpetas:
+
+-   En script_data_analysis estan los steps de preparacion y de la creacion de las tablas de este apartado
+
+-   En script_machine_learning estan los steps necesarios para desarollar los modelos
+
+-   En output_einstein todos los outputs que se han generado
+
+-   En memoria estan los steps para producir el file en pdf
+
+-   El file to_run.R recoge todos los steps que se acaban de mencionar
+
+## Preparacion de los datos
+
+Antes de crear los modelos se ha hecho preparacion de los datos, para que se puedan utilizar en los steps de ML:
+
+-   Las variables se han estandardizados y centrado previamente, por al razon que algunos algortimos funcionan mejor con los datos escalados.
+
+-   Se han removido errores, o caracteres especiales, simbolos etc.
+
+-   Se han convertido columnas de **character** a **factor, logical** a **factor,** o algunas variables a numerical.
+
+-   Se ha creado el **output**, la variable dependiente **care** desde las cuatro variables dummy sobre la severidad covid precedentemente presentes en el dataset original.
+
+```{r echo=FALSE}
+library(readxl)
+data<- read_excel("D:/GitHub/ML_COVID/data_einstein/dataset.xlsx")
+countNA<-function(x){sum(is.na(x))}
+x<-apply(data, 2, countNA)/nrow(data)
+plot(density(x/nrow(data)), main="Porcentual de Missing Values", xlab="Porcentual de NA por variable")
+```
+
+El dataset original, tiene un alto numero de observaciones y variables con **missing values**. Desde el dataset original se ha actuado de dos maneras diferentes:
+
+-   En el primer caso se han eliminado las variables que tiene una porcentual de 95% de datos faltantes. Y se imputan lo datos faltantes con la funcion **rfImpute()**. Hay que mencionar que no se han imputado valores a casos con datos faltantes de COVID y severidad.
+
+-   En el otro caso se han filtrado las variables con pocos valores, y se han quitado las observaciones que continuaban en tener datos faltantes, de esta forma el dataset se ha notablemente reducido por numero de observaciones y variables. Pero en esto caso no hay datos imputados y tampoco faltantes.
+
+Como se puede notar en la tabla aqui abajo, como es normal hay todavia datos faltantes despues que se ha filtrado con el umbral del 95%.
+
+```{r echo=FALSE, fig.height=3, fig.width=8}
+plot_intro_ein_no_IMP
+```
+
+Estos es lo que se obtiene del dataset despues que se ha imputato los datos faltantes:
+
+```{r echo=FALSE, fig.height=3, fig.width=8}
+plot_intro_ein
+```
+
+Como se puede ver la segunda opcion es no tener datos faltantes, opcion que se podria tener en cuenta si el numero de observacione fuese suficientemente grande, y sin perder demasiado variables. La proporcion de la tipologia de columnas cambia en comparacion al modelo anterior, porque se han quitadop variables:
+
+```{r echo=FALSE, fig.height=3, fig.width=8}
+plot_intro_ein_lite
+```
+
+Las variables del dataset original estan en el **Anexo - Variables**. Las variables que quedan en los dos dataset, estan resumida en las dos tablas estadisticas en **Anexo 2 - Tablas Estadisticas 1** para el primer caso (datos imputados), y **Anexo 3 - Tablas Estadisticas 2** para el segundo caso.
+
+## Primer caso - Datos Imputados
+
+En las dos tablas se pueden ver los casos positivos y negativos separado por quantiles de edad. Como Se puede notar el dataset original se ha utilizado la poblacion y dividida por 20 grupos de tamaño igual.
+
+El total del dataset es de n = 5644. repartido entre casos positivos n = 558 y negativos n = 5086.
+
+```{r echo=FALSE}
+kable(table_covid_vs_age)
+```
+
+En esta tablas relaciona la severidad covid con los cuantiles de edad, Podemos notar que la severidad covid, se puede notar como la severidad tiende a estar en los quantiles mas altos.
+
+```{r echo=FALSE}
+kable(table_sev_vs_age)
+```
+
+## Segundo caso
+
+En este caso se han eliminato todos los missing values reduciendo el dataset a solamente n = 598, repartidos en casos negativo n = 517 y de positivos n = 81.
+
+Tambien en este dataset, a pesar del menor numero de observaciones los quantiles mas altos tengan mas casos de positividad.
+
+```{r echo=FALSE}
+kable(table_covid_vs_age_lite)
+```
+
+Tambien en esta tabla se puede notar un patron parecido a la las tabla del primer caso, donde la severidad tiende a las franjas de poblacion mas altas.
+
+```{r echo=FALSE}
+kable(table_sev_vs_age_lite)
+```
+
+\pagebreak
