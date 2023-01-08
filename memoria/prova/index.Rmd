@@ -1,9 +1,11 @@
 ---
 title: "ML_COVID_Memoria"
 author: "Carlo Alberto Bissacco"
-date: "12-01-2023"
+date: "15-01-2023"
 lang: es
 knit: "bookdown::render_book"
+geometry: margin=1.5in
+#number_section : true
 output: 
   pdf_document:
    keep_tex: yes
@@ -24,13 +26,8 @@ abstract: |
 keywords: |
   SCRIVERE QUI KEYWARDS
 csl : elsevier-with-titles.csl
-#bibliography: scholar1.bib
+bibliography: biblio2.bib
 #rmd_files: ["02_Test.Rmd","01_TestXXX.Rmd"]
 ---
 
 \pagebreak
-  
-  
-
-
-

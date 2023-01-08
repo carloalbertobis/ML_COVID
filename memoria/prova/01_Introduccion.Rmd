@@ -2,6 +2,7 @@
 output: 
   pdf_document:
    keep_tex: yes
+bibliography: biblio2.bib
 ---
 
 # Introducción
@@ -20,13 +21,13 @@ Los que este estudio intentará analizar son los factores de riesgo de las perso
 
 ## Machine Learning
 
-Se han estudiado previamente los factores de riesgo con diferentes modelos y metodologías, en general las más utilizada en varios estudios es la regresión logística, pero siempre mas en las publicaciones se están utilizando algoritmos de Machine Learning. Los algoritmos de Machine Learning permiten detectar patrones en grandes bases de datos, permitiendo en parte facilitar el estudio predictivo, sobre todo en los casos donde el resultado se conoce y hay un numero grande de variables predictoras. De esta forma, los algoritmos de ML aplicados a bases de datos EHR, asumen una importancia fundamental. [obermeyer2016predicting]
+Se han estudiado previamente los factores de riesgo con diferentes modelos y metodologías, en general las más utilizada en varios estudios es la regresión logística, pero siempre mas en las publicaciones se están utilizando algoritmos de Machine Learning. Los algoritmos de Machine Learning permiten detectar patrones en grandes bases de datos, permitiendo en parte facilitar el estudio predictivo, sobre todo en los casos donde el resultado se conoce y hay un numero grande de variables predictoras. De esta forma, los algoritmos de ML aplicados a bases de datos EHR, asumen una importancia fundamental. @obermeyer2016 [obermeyer2016predicting]
 
 Los algoritmos de Machine Learning en estos últimos años se están aplicando siempre más, y en diferentes áreas. En los últimos años además ha habido un aumento de la generación de grandes cantidades de datos, y como consecuencia el desarrollo de metodologías para la explotación de Big Data. El aumento de la disponibilidad de datos ha crecido junto con técnicas y metodologías para su utilizo.
 
 El Machine Learning se puede considerar como una subcategoría de la Inteligencia Artificial, y está siendo aplicada siempre en más campos con resultados satisfactorios. La utilidad de Machine Learning aplicado a los EHR, es la posibilidad de generar información y permitir una mejor toma de decisión. Existe una extensa bibliografía y de publicaciones que demuestra que el Machine Learning puede ser una herramienta extremadamente útil en el sector sanitario, en el diagnóstico y en la toma de decisiones. Se han publicado diferentes estudios demostrando una mejor performance de las metodologías de Machine Learning en comparación con la más común Logística Regresión. [couronne2018random, beunza2019comparison] [XXX]
 
-Reduciendo el campo al utilizo de Machine Learning en detección de COVID-19, se encuentra una amplia bibliografía desde múltiples enfoques. Desde el tracking de la detección, a la detección través diagnóstico por imagen, o como se quiere aplicar a este estudio, predecir severidad y duración de la enfermedad través datos clínicos de los pacientes. [1,2] XXX]
+Reduciendo el campo al utilizo de Machine Learning en detección de COVID-19, se encuentra una amplia bibliografía desde múltiples enfoques. Desde el tracking de la detección, a la detección través diagnóstico por imagen, o como se quiere aplicar a este estudio, predecir severidad y duración de la enfermedad través datos clínicos de los pacientes. [1,2]
 
 Para este estudio se utilizan y se comparan diferentes metodologías de Machine Learning y la Regresión Logística Ordinal. En general los algoritmos analizados en este estudio son algoritmos que se han utilizado en estudios anteriormente, y se puede encontrar una extendida bibliografía donde se aplican estos algoritmos: Support Vector Machines (SVM), Random Forest (RF), XGBoost, Artificial Neural Networks (ANN), Naive Bayer (NB) aplicados en diferentes campos y no solamente el sanitario.
 

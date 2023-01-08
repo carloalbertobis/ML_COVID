@@ -34,7 +34,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1.5in]{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -62,29 +62,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
-  \fi
-  % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \ifLuaTeX
 \usepackage[bidi=basic]{babel}
 \else
@@ -114,7 +91,7 @@
 
 \title{ML\_COVID\_Memoria}
 \author{Carlo Alberto Bissacco}
-\date{15-01-2023}
+\date{12-01-2023}
 
 \begin{document}
 \maketitle
@@ -214,7 +191,7 @@ permitiendo en parte facilitar el estudio predictivo, sobre todo en los
 casos donde el resultado se conoce y hay un numero grande de variables
 predictoras. De esta forma, los algoritmos de ML aplicados a bases de
 datos EHR, asumen una importancia fundamental.
-{[}\protect\hyperlink{ref-obermeyer2016}{1}{]}
+{[}obermeyer2016predicting{]}
 
 Los algoritmos de Machine Learning en estos últimos años se están
 aplicando siempre más, y en diferentes áreas. En los últimos años además
@@ -240,7 +217,7 @@ COVID-19, se encuentra una amplia bibliografía desde múltiples enfoques.
 Desde el tracking de la detección, a la detección través diagnóstico por
 imagen, o como se quiere aplicar a este estudio, predecir severidad y
 duración de la enfermedad través datos clínicos de los pacientes.
-{[}1,2{]}
+{[}1,2{]} XXX{]}
 
 Para este estudio se utilizan y se comparan diferentes metodologías de
 Machine Learning y la Regresión Logística Ordinal. En general los
@@ -2574,16 +2551,5 @@ neutrophils & Urine - Bile pigments & care \\
 \hypertarget{referencias-bibliogruxe1ficas}{%
 \section{Referencias
 Bibliográficas}\label{referencias-bibliogruxe1ficas}}
-
-\hypertarget{refs}{}
-\begin{CSLReferences}{0}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-obermeyer2016}{}}%
-\CSLLeftMargin{{[}1{]} }%
-\CSLRightInline{Z. Obermeyer, E.J. Emanuel, Predicting the Future
-{\textemdash} Big Data, Machine Learning, and Clinical Medicine, New
-England Journal of Medicine. 375 (2016) 1216-1219.
-https://doi.org/\href{https://doi.org/10.1056/nejmp1606181}{10.1056/nejmp1606181}.}
-
-\end{CSLReferences}
 
 \end{document}
